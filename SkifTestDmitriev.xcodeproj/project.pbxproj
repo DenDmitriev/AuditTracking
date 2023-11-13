@@ -36,7 +36,6 @@
 		952CC1072B0234520036BABF /* GooglePlaces.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC1062B0234510036BABF /* GooglePlaces.xcframework */; };
 		952CC1082B0234520036BABF /* GooglePlaces.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC1062B0234510036BABF /* GooglePlaces.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		952CC10A2B0235C10036BABF /* GooglePlaces.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 952CC1092B0235C10036BABF /* GooglePlaces.bundle */; };
-		952CC10D2B02384A0036BABF /* info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 952CC10C2B02384A0036BABF /* info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -83,7 +82,6 @@
 		952CC1042B0233BE0036BABF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		952CC1062B0234510036BABF /* GooglePlaces.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GooglePlaces.xcframework; path = "../../../../Downloads/GooglePlaces-8.2.1/Frameworks/GooglePlaces.xcframework"; sourceTree = "<group>"; };
 		952CC1092B0235C10036BABF /* GooglePlaces.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = "../../../../Downloads/GooglePlaces-8.2.1/Frameworks/GooglePlaces.xcframework/ios-arm64_x86_64-simulator/GooglePlaces.framework/Resources/GooglePlaces.bundle"; sourceTree = "<group>"; };
-		952CC10C2B02384A0036BABF /* info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,7 +136,6 @@
 		952CC0CC2B022E9A0036BABF /* SkifTestDmitriev */ = {
 			isa = PBXGroup;
 			children = (
-				952CC10C2B02384A0036BABF /* info.plist */,
 				952CC0CD2B022E9A0036BABF /* SkifTestDmitrievApp.swift */,
 				952CC0CF2B022E9A0036BABF /* ContentView.swift */,
 				952CC0D12B022E9C0036BABF /* Assets.xcassets */,
@@ -240,7 +237,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				952CC10D2B02384A0036BABF /* info.plist in Resources */,
 				952CC10A2B0235C10036BABF /* GooglePlaces.bundle in Resources */,
 				952CC0E72B0232280036BABF /* GoogleMaps.bundle in Resources */,
 				952CC0D52B022E9C0036BABF /* Preview Assets.xcassets in Resources */,

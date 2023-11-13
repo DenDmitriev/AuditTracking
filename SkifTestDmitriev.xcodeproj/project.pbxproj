@@ -82,6 +82,7 @@
 		952CC1042B0233BE0036BABF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		952CC1062B0234510036BABF /* GooglePlaces.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GooglePlaces.xcframework; path = "../../../../Downloads/GooglePlaces-8.2.1/Frameworks/GooglePlaces.xcframework"; sourceTree = "<group>"; };
 		952CC1092B0235C10036BABF /* GooglePlaces.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = "../../../../Downloads/GooglePlaces-8.2.1/Frameworks/GooglePlaces.xcframework/ios-arm64_x86_64-simulator/GooglePlaces.framework/Resources/GooglePlaces.bundle"; sourceTree = "<group>"; };
+		952CC10F2B023A9F0036BABF /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				952CC0CD2B022E9A0036BABF /* SkifTestDmitrievApp.swift */,
+				952CC10F2B023A9F0036BABF /* Config.xcconfig */,
 				952CC0CF2B022E9A0036BABF /* ContentView.swift */,
 				952CC0D12B022E9C0036BABF /* Assets.xcassets */,
 				952CC0D32B022E9C0036BABF /* Preview Content */,

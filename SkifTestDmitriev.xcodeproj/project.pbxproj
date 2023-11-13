@@ -12,12 +12,8 @@
 		952CC0D22B022E9C0036BABF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 952CC0D12B022E9C0036BABF /* Assets.xcassets */; };
 		952CC0D52B022E9C0036BABF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 952CC0D42B022E9C0036BABF /* Preview Assets.xcassets */; };
 		952CC0DD2B0231CE0036BABF /* GoogleMapsBase.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC0DC2B0231CE0036BABF /* GoogleMapsBase.xcframework */; };
-		952CC0DE2B0231CE0036BABF /* GoogleMapsBase.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC0DC2B0231CE0036BABF /* GoogleMapsBase.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		952CC0E22B0231DD0036BABF /* GoogleMapsCore.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC0E02B0231DD0036BABF /* GoogleMapsCore.xcframework */; };
-		952CC0E32B0231DD0036BABF /* GoogleMapsCore.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC0E02B0231DD0036BABF /* GoogleMapsCore.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		952CC0E42B0231DD0036BABF /* GoogleMaps.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC0E12B0231DD0036BABF /* GoogleMaps.xcframework */; };
-		952CC0E52B0231DD0036BABF /* GoogleMaps.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC0E12B0231DD0036BABF /* GoogleMaps.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		952CC0E72B0232280036BABF /* GoogleMaps.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 952CC0E62B0232270036BABF /* GoogleMaps.bundle */; };
 		952CC0E92B0233590036BABF /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC0E82B0233590036BABF /* Accelerate.framework */; };
 		952CC0EB2B0233630036BABF /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC0EA2B0233630036BABF /* CoreData.framework */; };
 		952CC0ED2B02336B0036BABF /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC0EC2B02336B0036BABF /* CoreGraphics.framework */; };
@@ -34,26 +30,8 @@
 		952CC1032B0233B70036BABF /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC1022B0233B70036BABF /* QuartzCore.framework */; };
 		952CC1052B0233BE0036BABF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC1042B0233BE0036BABF /* SystemConfiguration.framework */; };
 		952CC1072B0234520036BABF /* GooglePlaces.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC1062B0234510036BABF /* GooglePlaces.xcframework */; };
-		952CC1082B0234520036BABF /* GooglePlaces.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC1062B0234510036BABF /* GooglePlaces.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		952CC10A2B0235C10036BABF /* GooglePlaces.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 952CC1092B0235C10036BABF /* GooglePlaces.bundle */; };
+		952CC1122B023BDB0036BABF /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 952CC10F2B023A9F0036BABF /* Config.xcconfig */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		952CC0DF2B0231CE0036BABF /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				952CC1082B0234520036BABF /* GooglePlaces.xcframework in Embed Frameworks */,
-				952CC0E52B0231DD0036BABF /* GoogleMaps.xcframework in Embed Frameworks */,
-				952CC0E32B0231DD0036BABF /* GoogleMapsCore.xcframework in Embed Frameworks */,
-				952CC0DE2B0231CE0036BABF /* GoogleMapsBase.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		952CC0CA2B022E9A0036BABF /* SkifTestDmitriev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkifTestDmitriev.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -64,7 +42,6 @@
 		952CC0DC2B0231CE0036BABF /* GoogleMapsBase.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GoogleMapsBase.xcframework; path = "../../../../Downloads/GoogleMaps-8.2.0/Base/Frameworks/GoogleMapsBase.xcframework"; sourceTree = "<group>"; };
 		952CC0E02B0231DD0036BABF /* GoogleMapsCore.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GoogleMapsCore.xcframework; path = "../../../../Downloads/GoogleMaps-8.2.0/Maps/Frameworks/GoogleMapsCore.xcframework"; sourceTree = "<group>"; };
 		952CC0E12B0231DD0036BABF /* GoogleMaps.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GoogleMaps.xcframework; path = "../../../../Downloads/GoogleMaps-8.2.0/Maps/Frameworks/GoogleMaps.xcframework"; sourceTree = "<group>"; };
-		952CC0E62B0232270036BABF /* GoogleMaps.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = "../../../../Downloads/GoogleMaps-8.2.0/Maps/Frameworks/GoogleMaps.xcframework/ios-arm64_x86_64-simulator/GoogleMaps.framework/Resources/GoogleMaps.bundle"; sourceTree = "<group>"; };
 		952CC0E82B0233590036BABF /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		952CC0EA2B0233630036BABF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		952CC0EC2B02336B0036BABF /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -81,8 +58,8 @@
 		952CC1022B0233B70036BABF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		952CC1042B0233BE0036BABF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		952CC1062B0234510036BABF /* GooglePlaces.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = GooglePlaces.xcframework; path = "../../../../Downloads/GooglePlaces-8.2.1/Frameworks/GooglePlaces.xcframework"; sourceTree = "<group>"; };
-		952CC1092B0235C10036BABF /* GooglePlaces.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = GooglePlaces.bundle; path = "../../../../Downloads/GooglePlaces-8.2.1/Frameworks/GooglePlaces.xcframework/ios-arm64_x86_64-simulator/GooglePlaces.framework/Resources/GooglePlaces.bundle"; sourceTree = "<group>"; };
 		952CC10F2B023A9F0036BABF /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		952CC1132B023C740036BABF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,8 +95,6 @@
 		952CC0C12B022E9A0036BABF = {
 			isa = PBXGroup;
 			children = (
-				952CC0E62B0232270036BABF /* GoogleMaps.bundle */,
-				952CC1092B0235C10036BABF /* GooglePlaces.bundle */,
 				952CC0CC2B022E9A0036BABF /* SkifTestDmitriev */,
 				952CC0CB2B022E9A0036BABF /* Products */,
 				952CC0DB2B0231CE0036BABF /* Frameworks */,
@@ -137,10 +112,11 @@
 		952CC0CC2B022E9A0036BABF /* SkifTestDmitriev */ = {
 			isa = PBXGroup;
 			children = (
+				952CC1132B023C740036BABF /* Info.plist */,
 				952CC0CD2B022E9A0036BABF /* SkifTestDmitrievApp.swift */,
-				952CC10F2B023A9F0036BABF /* Config.xcconfig */,
 				952CC0CF2B022E9A0036BABF /* ContentView.swift */,
 				952CC0D12B022E9C0036BABF /* Assets.xcassets */,
+				952CC10F2B023A9F0036BABF /* Config.xcconfig */,
 				952CC0D32B022E9C0036BABF /* Preview Content */,
 			);
 			path = SkifTestDmitriev;
@@ -190,7 +166,6 @@
 				952CC0C62B022E9A0036BABF /* Sources */,
 				952CC0C72B022E9A0036BABF /* Frameworks */,
 				952CC0C82B022E9A0036BABF /* Resources */,
-				952CC0DF2B0231CE0036BABF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -239,9 +214,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				952CC10A2B0235C10036BABF /* GooglePlaces.bundle in Resources */,
-				952CC0E72B0232280036BABF /* GoogleMaps.bundle in Resources */,
 				952CC0D52B022E9C0036BABF /* Preview Assets.xcassets in Resources */,
+				952CC1122B023BDB0036BABF /* Config.xcconfig in Resources */,
 				952CC0D22B022E9C0036BABF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +237,7 @@
 /* Begin XCBuildConfiguration section */
 		952CC0D62B022E9C0036BABF /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 952CC10F2B023A9F0036BABF /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -323,6 +298,7 @@
 		};
 		952CC0D72B022E9C0036BABF /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 952CC10F2B023A9F0036BABF /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -386,6 +362,7 @@
 				DEVELOPMENT_TEAM = TNTX3799P3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SkifTestDmitriev/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -419,6 +396,7 @@
 				DEVELOPMENT_TEAM = TNTX3799P3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SkifTestDmitriev/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

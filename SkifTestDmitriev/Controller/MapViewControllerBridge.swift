@@ -13,8 +13,10 @@ struct MapViewControllerBridge: UIViewControllerRepresentable {
     
     @Binding var zoomLevel: Float
     @Binding var track: Track?
+    @Binding var isPlaying: Bool
     
     var onAnimationEnded: () -> ()
+    var onZoomChanged: (Float) -> ()
     
     func makeUIViewController(context: Context) -> MapViewController {
         let controller = MapViewController()
@@ -25,31 +27,43 @@ struct MapViewControllerBridge: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: MapViewController, context: Context) {
-        uiViewController.zoom(to: zoomLevel)
+        animateToZoom(viewController: uiViewController)
+        animateToTrack(viewController: uiViewController)
+        if isPlaying {
+            playTrack(viewController: uiViewController)
+        }
+    }
+    
+    private func playTrack(viewController: MapViewController) {
+        if let track {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                
+            }
+            viewController.playTrack(track, speed: .one)
+        }
+    }
+    
+    private func animateToZoom(viewController: MapViewController) {
+        if viewController.mapView.camera.zoom != zoomLevel {
+            DispatchQueue.main.async {
+                viewController.zoom(to: zoomLevel)
+            }
+        }
+    }
+    
+    private func animateToTrack(viewController: MapViewController) {
         if let track {
             let padding: CGFloat = 16
             let insets = UIEdgeInsets(top: 50, left: padding, bottom: 250, right: padding)
-            uiViewController.drawTrack(track: track, padding: insets) {
-//                onZoomUpdated(uiViewController.mapView.camera.zoom)
+            viewController.drawTrack(track: track, padding: insets) {
+                DispatchQueue.main.async {
+                    onZoomChanged(viewController.mapView.camera.zoom)
+                }
             }
         }
-        
     }
-    
     
     func makeCoordinator() -> MapViewCoordinator {
         return MapViewCoordinator(self)
-    }
-    
-    final class MapViewCoordinator: NSObject, GMSMapViewDelegate {
-        var mapViewControllerBridge: MapViewControllerBridge
-        
-        init(_ mapViewControllerBridge: MapViewControllerBridge) {
-            self.mapViewControllerBridge = mapViewControllerBridge
-        }
-        
-        func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
-            
-        }
     }
 }

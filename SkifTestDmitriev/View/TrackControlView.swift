@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TrackControlView: View {
     
-    @Binding var scale: MapScale
+    @Binding var scale: TrackPlaySpeed
     @Binding var isPlay: Bool
     @Binding var showInfo: Bool
     

@@ -13,7 +13,9 @@ struct ContentView: View {
     @ObservedObject var viewModel: ContentViewModel
     @State var isObserve: Bool = false
     @State var zoomLevel: Float = 10
+    @State var zoomLevelCamera: Float = 10
     @State var track: Track?
+    @State var isPlaying: Bool = false
     @State var showInfo: Bool = false
     @State var maxSpeed: Int? = .zero
     @State var distance: Int? = .zero
@@ -25,11 +27,15 @@ struct ContentView: View {
             MapViewControllerBridge(
                 zoomLevel: $zoomLevel,
                 track: $track,
+                isPlaying: $isPlaying,
                 onAnimationEnded: {
                     
+                },
+                onZoomChanged: { zoomLevelCamera in
+                    self.zoomLevelCamera = zoomLevelCamera
                 })
             .overlay {
-                ZoomControlView(zoom: $zoomLevel)
+                ZoomControlView(zoom: $zoomLevel, zoomCamera: $zoomLevelCamera)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(16)
                     .offset(y: -20)

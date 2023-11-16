@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum MapScale: Int {
+enum TrackPlaySpeed: Int {
     case one = 1
     case four = 4
     case eight = 8

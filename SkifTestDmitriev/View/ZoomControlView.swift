@@ -10,11 +10,12 @@ import SwiftUI
 struct ZoomControlView: View {
     
     @Binding var zoom: Float
+    @Binding var zoomCamera: Float
     
     var body: some View {
         VStack(spacing: 8) {
             Button {
-                zoom += 1
+                zoom = zoomCamera + 1
             } label: {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(AppColors.placeholder, lineWidth: 0.25)
@@ -29,7 +30,7 @@ struct ZoomControlView: View {
             }
             
             Button {
-                zoom -= 1
+                zoom = zoomCamera - 1
             } label: {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(AppColors.placeholder, lineWidth: 0.25)
@@ -48,6 +49,6 @@ struct ZoomControlView: View {
 
 struct ZoomControlView_Previews: PreviewProvider {
     static var previews: some View {
-        ZoomControlView(zoom: .constant(1))
+        ZoomControlView(zoom: .constant(1), zoomCamera: .constant(1))
     }
 }

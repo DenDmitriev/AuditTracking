@@ -112,4 +112,10 @@ class MapViewController: UIViewController {
         
         return spans
     }
+    
+    func playTrack(_ track: Track, speed: TrackPlaySpeed) {
+        let next = track.locationPoints[50000].coordinate
+        let nextCam = GMSCameraUpdate.setTarget(next)
+        mapView.animate(with: nextCam)
+    }
 }

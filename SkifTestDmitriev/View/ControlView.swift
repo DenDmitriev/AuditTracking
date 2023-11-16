@@ -14,7 +14,7 @@ struct ControlView: View {
     @Binding var startAt: Date?
     @Binding var finishIn: Date?
     @State var trackProgress: Double = 0.3
-    @State var scale: MapScale = .one
+    @State var scale: TrackPlaySpeed = .one
     @State var isPlay: Bool = false
     @Binding var showInfo: Bool
     

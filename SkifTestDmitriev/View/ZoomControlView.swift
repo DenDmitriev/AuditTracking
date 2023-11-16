@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ZoomControlView: View {
     
-    @Binding var zoom: Double
+    @Binding var zoom: Float
     
     var body: some View {
         VStack(spacing: 8) {

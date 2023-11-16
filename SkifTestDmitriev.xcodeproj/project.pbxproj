@@ -44,6 +44,17 @@
 		952CC12C2B029FCE0036BABF /* MapScale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC12B2B029FCE0036BABF /* MapScale.swift */; };
 		952CC12E2B02A8B90036BABF /* ObserverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC12D2B02A8B90036BABF /* ObserverView.swift */; };
 		952CC1302B02AE890036BABF /* ZoomControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC12F2B02AE890036BABF /* ZoomControlView.swift */; };
+		952CC1362B0340680036BABF /* Speed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC1352B0340680036BABF /* Speed.swift */; };
+		952CC13A2B0343090036BABF /* SpeedLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC1392B0343090036BABF /* SpeedLegendView.swift */; };
+		952CC1482B037ABD0036BABF /* LocationPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC1472B037ABD0036BABF /* LocationPoint.swift */; };
+		952CC14A2B0380010036BABF /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC1492B0380010036BABF /* ContentViewModel.swift */; };
+		952CC14E2B03909B0036BABF /* ZoomControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC14D2B03909B0036BABF /* ZoomControl.swift */; };
+		952CC1532B04864C0036BABF /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC1522B04864C0036BABF /* DateExtension.swift */; };
+		952CC1592B04B5350036BABF /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC1582B04B5350036BABF /* LoadingView.swift */; };
+		952CC15D2B04BEC90036BABF /* PopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC15C2B04BEC90036BABF /* PopupView.swift */; };
+		952CC15F2B04E0780036BABF /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC15E2B04E0780036BABF /* Track.swift */; };
+		952CC1612B04EB320036BABF /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC1602B04EB320036BABF /* CustomLabel.swift */; };
+		952CC1632B053CBD0036BABF /* CLLocationCoordinate2DExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC1622B053CBD0036BABF /* CLLocationCoordinate2DExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -86,6 +97,17 @@
 		952CC12B2B029FCE0036BABF /* MapScale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapScale.swift; sourceTree = "<group>"; };
 		952CC12D2B02A8B90036BABF /* ObserverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObserverView.swift; sourceTree = "<group>"; };
 		952CC12F2B02AE890036BABF /* ZoomControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomControlView.swift; sourceTree = "<group>"; };
+		952CC1352B0340680036BABF /* Speed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speed.swift; sourceTree = "<group>"; };
+		952CC1392B0343090036BABF /* SpeedLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeedLegendView.swift; sourceTree = "<group>"; };
+		952CC1472B037ABD0036BABF /* LocationPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationPoint.swift; sourceTree = "<group>"; };
+		952CC1492B0380010036BABF /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		952CC14D2B03909B0036BABF /* ZoomControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomControl.swift; sourceTree = "<group>"; };
+		952CC1522B04864C0036BABF /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		952CC1582B04B5350036BABF /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		952CC15C2B04BEC90036BABF /* PopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupView.swift; sourceTree = "<group>"; };
+		952CC15E2B04E0780036BABF /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		952CC1602B04EB320036BABF /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
+		952CC1622B053CBD0036BABF /* CLLocationCoordinate2DExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2DExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,8 +165,8 @@
 				952CC1142B023E0D0036BABF /* GoogleMaps.bundle */,
 				952CC1132B023C740036BABF /* Info.plist */,
 				952CC0CD2B022E9A0036BABF /* SkifTestDmitrievApp.swift */,
-				952CC1312B02BE2E0036BABF /* View */,
 				952CC1322B02BE340036BABF /* Model */,
+				952CC1312B02BE2E0036BABF /* View */,
 				952CC1332B02BE3A0036BABF /* ViewModel */,
 				952CC1342B02BE840036BABF /* Controller */,
 				952CC1222B02456D0036BABF /* Utilites */,
@@ -193,6 +215,7 @@
 		952CC1222B02456D0036BABF /* Utilites */ = {
 			isa = PBXGroup;
 			children = (
+				952CC1512B0486430036BABF /* Extensions */,
 				952CC1232B02457E0036BABF /* AppColors.swift */,
 				952CC1272B0299E90036BABF /* AppFonts.swift */,
 			);
@@ -203,7 +226,11 @@
 			isa = PBXGroup;
 			children = (
 				952CC0CF2B022E9A0036BABF /* ContentView.swift */,
+				952CC1582B04B5350036BABF /* LoadingView.swift */,
+				952CC15C2B04BEC90036BABF /* PopupView.swift */,
 				952CC11E2B0241AF0036BABF /* ControlView.swift */,
+				952CC1602B04EB320036BABF /* CustomLabel.swift */,
+				952CC1392B0343090036BABF /* SpeedLegendView.swift */,
 				952CC12D2B02A8B90036BABF /* ObserverView.swift */,
 				952CC1292B029B5F0036BABF /* TrackControlView.swift */,
 				952CC1202B0244230036BABF /* TrackProgressView.swift */,
@@ -216,6 +243,10 @@
 			isa = PBXGroup;
 			children = (
 				952CC12B2B029FCE0036BABF /* MapScale.swift */,
+				952CC1352B0340680036BABF /* Speed.swift */,
+				952CC1472B037ABD0036BABF /* LocationPoint.swift */,
+				952CC15E2B04E0780036BABF /* Track.swift */,
+				952CC14D2B03909B0036BABF /* ZoomControl.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -223,6 +254,7 @@
 		952CC1332B02BE3A0036BABF /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				952CC1492B0380010036BABF /* ContentViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -234,6 +266,15 @@
 				952CC11C2B02404D0036BABF /* MapViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		952CC1512B0486430036BABF /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				952CC1522B04864C0036BABF /* DateExtension.swift */,
+				952CC1622B053CBD0036BABF /* CLLocationCoordinate2DExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,12 +354,23 @@
 				952CC1302B02AE890036BABF /* ZoomControlView.swift in Sources */,
 				952CC0D02B022E9A0036BABF /* ContentView.swift in Sources */,
 				952CC0CE2B022E9A0036BABF /* SkifTestDmitrievApp.swift in Sources */,
+				952CC1362B0340680036BABF /* Speed.swift in Sources */,
+				952CC15F2B04E0780036BABF /* Track.swift in Sources */,
 				952CC12C2B029FCE0036BABF /* MapScale.swift in Sources */,
+				952CC1612B04EB320036BABF /* CustomLabel.swift in Sources */,
 				952CC12E2B02A8B90036BABF /* ObserverView.swift in Sources */,
+				952CC1482B037ABD0036BABF /* LocationPoint.swift in Sources */,
+				952CC14A2B0380010036BABF /* ContentViewModel.swift in Sources */,
+				952CC1632B053CBD0036BABF /* CLLocationCoordinate2DExtension.swift in Sources */,
 				952CC1212B0244230036BABF /* TrackProgressView.swift in Sources */,
 				952CC1282B0299E90036BABF /* AppFonts.swift in Sources */,
+				952CC15D2B04BEC90036BABF /* PopupView.swift in Sources */,
+				952CC14E2B03909B0036BABF /* ZoomControl.swift in Sources */,
+				952CC13A2B0343090036BABF /* SpeedLegendView.swift in Sources */,
+				952CC1592B04B5350036BABF /* LoadingView.swift in Sources */,
 				952CC12A2B029B5F0036BABF /* TrackControlView.swift in Sources */,
 				952CC1242B02457E0036BABF /* AppColors.swift in Sources */,
+				952CC1532B04864C0036BABF /* DateExtension.swift in Sources */,
 				952CC11D2B02404D0036BABF /* MapViewController.swift in Sources */,
 				952CC11F2B0241AF0036BABF /* ControlView.swift in Sources */,
 			);

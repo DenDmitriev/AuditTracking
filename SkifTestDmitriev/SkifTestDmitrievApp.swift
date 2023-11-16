@@ -23,9 +23,11 @@ struct SkifTestDmitrievApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self)
     var appDelegate
     
+    var contentViewModel: ContentViewModel = .init()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: contentViewModel)
         }
     }
 }

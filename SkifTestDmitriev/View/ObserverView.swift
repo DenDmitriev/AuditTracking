@@ -17,11 +17,19 @@ struct ObserverView: View {
         } label: {
             RoundedRectangle(cornerRadius: 10)
                 .stroke(AppColors.placeholder, lineWidth: 0.25)
-                .background(RoundedRectangle(cornerRadius: 10).fill(.regularMaterial))
+                .background(content: {
+                    if isObserve {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(AppColors.accentColor)
+                    } else {
+                        RoundedRectangle(cornerRadius: 10)
+                            .fill(.regularMaterial)
+                    }
+                })
                 .frame(width: 44, height: 44)
                 .overlay {
-                    Image(systemName: isObserve ? "eye.fill" : "eye")
-                        .foregroundColor(AppColors.icon)
+                    Image(systemName: "eye")
+                        .foregroundColor(isObserve ? .white : AppColors.icon)
                 }
         }
     }

@@ -12,8 +12,7 @@ struct ContentView: View {
     
     @ObservedObject var viewModel: ContentViewModel
     @State var isObserve: Bool = false
-    @State var zoomLevel: Float = 10
-    @State var zoomLevelCamera: Float = 10
+    @State var zoomLevel: Float = zoomDefaultLevel
     @State var track: Track?
     @State var isPlaying: Bool = false
     @State var showInfo: Bool = false
@@ -21,6 +20,11 @@ struct ContentView: View {
     @State var distance: Int? = .zero
     @State var startAt: Date?
     @State var finishIn: Date?
+    @State var progress: Int = .zero
+    @State var trackPlaySpeed: TrackPlaySpeed = .one
+    
+    private static let zoomObserveLevel: Float = 18
+    private static let zoomDefaultLevel: Float = 10
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -28,17 +32,25 @@ struct ContentView: View {
                 zoomLevel: $zoomLevel,
                 track: $track,
                 isPlaying: $isPlaying,
+                progress: $progress,
+                speed: $trackPlaySpeed,
+                isObserve: $isObserve,
                 onAnimationEnded: {
                     
                 },
                 onZoomChanged: { zoomLevelCamera in
-                    self.zoomLevelCamera = zoomLevelCamera
+                    self.zoomLevel = zoomLevelCamera
                 })
             .overlay {
-                ZoomControlView(zoom: $zoomLevel, zoomCamera: $zoomLevelCamera)
+                ZoomControlView(zoom: $zoomLevel)
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(16)
                     .offset(y: -20)
+            }
+            .onChange(of: isObserve) { isObserve in
+                if isObserve {
+                    zoomLevel = Self.zoomObserveLevel
+                }
             }
             
             VStack(spacing: 0) {
@@ -46,7 +58,15 @@ struct ContentView: View {
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .padding(16)
                 
-                ControlView(maxSpeed: $maxSpeed, distance: $distance, startAt: $startAt, finishIn: $finishIn, showInfo: $showInfo)
+                ControlView(
+                    maxSpeed: $maxSpeed,
+                    distance: $distance,
+                    startAt: $startAt,
+                    finishIn: $finishIn,
+                    trackPlaySpeed: $trackPlaySpeed,
+                    isPlaying: $isPlaying,
+                    showInfo: $showInfo
+                )
                     .background(.regularMaterial)
                     .overlay {
                         VStack {
@@ -91,8 +111,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView(viewModel: ContentViewModel())
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView(viewModel: ContentViewModel())
+//    }
+//}

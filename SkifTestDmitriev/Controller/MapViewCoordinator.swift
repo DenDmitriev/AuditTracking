@@ -20,6 +20,10 @@ final class MapViewCoordinator: NSObject, GMSMapViewDelegate {
     }
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        
+    }
+    
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         syncZoomLevel(mapView)
     }
     

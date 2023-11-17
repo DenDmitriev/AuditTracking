@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TrackControlView: View {
     
-    @Binding var scale: TrackPlaySpeed
+    @Binding var trackSpeed: TrackPlaySpeed
     @Binding var isPlay: Bool
     @Binding var showInfo: Bool
     
@@ -18,9 +18,9 @@ struct TrackControlView: View {
     var body: some View {
         HStack {
             Button {
-                scale = scale.next()
+                trackSpeed = trackSpeed.next()
             } label: {
-                Text(scale.rawValue.formatted() + "x")
+                Text(trackSpeed.rawValue.formatted() + "x")
                     .font(AppFonts.titleTwo)
                     .frame(width: height, height: height)
             }
@@ -50,6 +50,6 @@ struct TrackControlView: View {
 
 struct TrackControlView_Previews: PreviewProvider {
     static var previews: some View {
-        TrackControlView(scale: .constant(.one), isPlay: .constant(true), showInfo: .constant(true))
+        TrackControlView(trackSpeed: .constant(.one), isPlay: .constant(true), showInfo: .constant(true))
     }
 }

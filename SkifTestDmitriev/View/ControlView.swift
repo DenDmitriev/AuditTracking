@@ -14,8 +14,8 @@ struct ControlView: View {
     @Binding var startAt: Date?
     @Binding var finishIn: Date?
     @State var trackProgress: Double = 0.3
-    @State var scale: TrackPlaySpeed = .one
-    @State var isPlay: Bool = false
+    @Binding var trackPlaySpeed: TrackPlaySpeed
+    @Binding var isPlaying: Bool
     @Binding var showInfo: Bool
     
     var body: some View {
@@ -39,7 +39,7 @@ struct ControlView: View {
             
             TrackProgressView(trackProgress: $trackProgress, speed: $maxSpeed)
             
-            TrackControlView(scale: $scale, isPlay: $isPlay, showInfo: $showInfo)
+            TrackControlView(trackSpeed: $trackPlaySpeed, isPlay: $isPlaying, showInfo: $showInfo)
         }
         .padding(16)
     }
@@ -66,6 +66,14 @@ struct ControlView: View {
 
 struct ControlView_Previews: PreviewProvider {
     static var previews: some View {
-        ControlView(maxSpeed: .constant(95), distance: .constant(1246), startAt: .constant(Date.now - 24 * 12 * 3600), finishIn: .constant(Date.now), showInfo: .constant(false))
+        ControlView(
+            maxSpeed: .constant(95),
+            distance: .constant(1246),
+            startAt: .constant(Date.now - 24 * 12 * 3600),
+            finishIn: .constant(Date.now),
+            trackPlaySpeed: .constant(.one),
+            isPlaying: .constant(false),
+            showInfo: .constant(false)
+        )
     }
 }

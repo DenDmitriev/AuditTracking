@@ -14,12 +14,23 @@ struct MapViewControllerBridge: UIViewControllerRepresentable {
     @Binding var zoomLevel: Float
     @Binding var track: Track?
     @Binding var isPlaying: Bool
+    @Binding var progress: Int
+    @Binding var speed: TrackPlaySpeed
+    @Binding var isObserve: Bool
     
     var onAnimationEnded: () -> ()
     var onZoomChanged: (Float) -> ()
     
     func makeUIViewController(context: Context) -> MapViewController {
-        let controller = MapViewController()
+        let controller = MapViewController(
+            track: $track,
+            isPlaying: $isPlaying,
+            progress: $progress,
+            speed: $speed,
+            isObserve: $isObserve,
+            zoomLevel: $zoomLevel
+        )
+        
         controller.mapView.delegate = context.coordinator
         controller.mapView.animate(toZoom: zoomLevel)
         controller.mapView.isUserInteractionEnabled = true
@@ -35,11 +46,8 @@ struct MapViewControllerBridge: UIViewControllerRepresentable {
     }
     
     private func playTrack(viewController: MapViewController) {
-        if let track {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                
-            }
-            viewController.playTrack(track, speed: .one)
+        DispatchQueue.main.async {
+            viewController.playTrack()
         }
     }
     

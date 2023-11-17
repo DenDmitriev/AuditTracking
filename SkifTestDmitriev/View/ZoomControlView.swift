@@ -10,12 +10,14 @@ import SwiftUI
 struct ZoomControlView: View {
     
     @Binding var zoom: Float
-    @Binding var zoomCamera: Float
+    
+    private let minZoom: Float = 2.0
+    private let maxZoom: Float = 21.0
     
     var body: some View {
         VStack(spacing: 8) {
             Button {
-                zoom = zoomCamera + 1
+                zoom += 1
             } label: {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(AppColors.placeholder, lineWidth: 0.25)
@@ -27,10 +29,12 @@ struct ZoomControlView: View {
                             .font(.title)
                             .fontWeight(.medium)
                     }
+                    .opacity(isEnable(.in) ? 0 : 1)
             }
+            .disabled(isEnable(.in))
             
             Button {
-                zoom = zoomCamera - 1
+                zoom -= 1
             } label: {
                 RoundedRectangle(cornerRadius: 10)
                     .stroke(AppColors.placeholder, lineWidth: 0.25)
@@ -42,13 +46,28 @@ struct ZoomControlView: View {
                             .font(.title)
                             .fontWeight(.medium)
                     }
+                    .opacity(isEnable(.out) ? 0 : 1)
             }
+            .disabled(isEnable(.out))
+        }
+    }
+    
+    enum ZoomAction {
+        case `in`, out
+    }
+    
+    private func isEnable(_ zoomAction: ZoomAction) -> Bool {
+        switch zoomAction {
+        case .in:
+            return zoom.rounded(.up) == maxZoom
+        case .out:
+            return zoom.rounded(.down) == minZoom
         }
     }
 }
 
-struct ZoomControlView_Previews: PreviewProvider {
-    static var previews: some View {
-        ZoomControlView(zoom: .constant(1), zoomCamera: .constant(1))
-    }
-}
+//struct ZoomControlView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ZoomControlView(zoom: .constant(1), zoomCamera: .constant(1))
+//    }
+//}

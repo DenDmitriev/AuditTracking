@@ -8,18 +8,22 @@
 2. По ссылке загрузить JSON точек и построить трек на карте.
 3. Добавить маркер объекта и возможность проиграть трек.
 
-![3](https://github.com/DenDmitriev/SkifTest/assets/65191747/7e965f2f-6bd6-4f3f-8f4c-98c1ced16d28)
-![2](https://github.com/DenDmitriev/SkifTest/assets/65191747/9a2702af-7a3c-45ca-9a14-e6f6dda25303)
-![1](https://github.com/DenDmitriev/SkifTest/assets/65191747/9683e53d-7580-47f1-84f6-661bc2384f5d)
-![Легенда](https://github.com/DenDmitriev/SkifTest/assets/65191747/4b0bb1a0-6a75-413e-ac2b-3429bdd58a12)
-![icons](https://github.com/DenDmitriev/SkifTest/assets/65191747/1d281475-6709-41fc-b097-38799563916a)
+![1](https://github.com/DenDmitriev/SkifTest/assets/65191747/3c63d0cd-98a0-4a6c-a153-e8eaa1eaef73)
+![2](https://github.com/DenDmitriev/SkifTest/assets/65191747/505e1ebe-5738-4585-9980-24a30b1ffa43)
+![3](https://github.com/DenDmitriev/SkifTest/assets/65191747/a6b2b05d-29a2-4d43-a593-2402c4a7d195)
+![Legend](https://github.com/DenDmitriev/SkifTest/assets/65191747/33dd9f7d-dd86-431d-ae5c-c5ec78d1546d)
+![Icons](https://github.com/DenDmitriev/SkifTest/assets/65191747/920a7b2d-938e-4a38-8786-5a68fdf33fe7)
+
 
 # Результат
 
-https://github.com/DenDmitriev/SkifTest/assets/65191747/b5b245fc-25f0-4dc9-855d-b3dcf1b390df
+https://github.com/DenDmitriev/SkifTest/assets/65191747/1cc4601d-0309-40eb-9ef4-5a023b1725ea
 
-<img src='https://github.com/DenDmitriev/SkifTest/assets/65191747/f903796e-4569-457a-aff4-f4b283920f5a' width='300'>
-<img src='https://github.com/DenDmitriev/SkifTest/assets/65191747/1e8bfcf7-3224-4ce3-b4a4-fef150f01858' width='300'>
-<img src='https://github.com/DenDmitriev/SkifTest/assets/65191747/5ae92876-68b3-475c-b92b-b1694a2eafba' width='300'>
-<img src='https://github.com/DenDmitriev/SkifTest/assets/65191747/d3b23424-4d3a-4acd-a63a-b4374ece8dd7' width='300'>
-<img src='https://github.com/DenDmitriev/SkifTest/assets/65191747/ceb85322-7b87-487d-b9df-d2d61ee507a8' width='300'>
+<img src="https://github.com/DenDmitriev/SkifTest/assets/65191747/40ffc2ae-d8c9-4aff-8015-b805ae989669" width="350">
+<img src="https://github.com/DenDmitriev/SkifTest/assets/65191747/37165ce3-9c14-48b2-b8e8-3273862e0a70" width="350">
+<img src="https://github.com/DenDmitriev/SkifTest/assets/65191747/04c10fdc-e669-4bd7-b465-4004c6b14dd7" width="350">
+<img src="https://github.com/DenDmitriev/SkifTest/assets/65191747/e3af4942-7ae9-42ea-bbcc-aa8da6bcd7b4" width="350">
+<img src="https://github.com/DenDmitriev/SkifTest/assets/65191747/e995c2d8-21e0-4e5b-908c-bc1d4c7685e4" width="350">
+
+
+

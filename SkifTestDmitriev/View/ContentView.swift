@@ -35,6 +35,7 @@ struct ContentView: View {
                 playSpeed: $trackPlaySpeed,
                 isObserve: $isObserve,
                 mapRouter: $mapRouter,
+                sliderMoving: $sliderMoving,
                 onAnimationEnded: {
                     mapRouter = .empty
                 },

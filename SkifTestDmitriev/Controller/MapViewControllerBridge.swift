@@ -18,6 +18,7 @@ struct MapViewControllerBridge: UIViewControllerRepresentable {
     @Binding var playSpeed: TrackPlaySpeed
     @Binding var isObserve: Bool
     @Binding var mapRouter: MapViewRouter
+    @Binding var sliderMoving: Bool
     
     var onAnimationEnded: () -> ()
     var onZoomChanged: (Float) -> ()
@@ -29,7 +30,8 @@ struct MapViewControllerBridge: UIViewControllerRepresentable {
             progress: $progress,
             speed: $playSpeed,
             isObserve: $isObserve,
-            zoomLevel: $zoomLevel
+            zoomLevel: $zoomLevel,
+            sliderMoving: $sliderMoving
         )
         
         controller.mapView.delegate = context.coordinator

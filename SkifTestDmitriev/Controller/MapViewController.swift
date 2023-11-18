@@ -17,6 +17,7 @@ class MapViewController: UIViewController {
     @Binding var playSpeed: TrackPlaySpeed
     @Binding var isObserveMode: Bool
     @Binding var zoomLevel: Float
+    @Binding var sliderMoving: Bool
     
     var mapView: GMSMapView {
         return self.view as? GMSMapView ?? map
@@ -31,13 +32,14 @@ class MapViewController: UIViewController {
     private var marker: GMSMarker?
     
     init(track: Binding<Track?>, isPlaying: Binding<Bool>, progress: Binding<Int>, speed:
-         Binding<TrackPlaySpeed>, isObserve: Binding<Bool>, zoomLevel: Binding<Float>) {
+         Binding<TrackPlaySpeed>, isObserve: Binding<Bool>, zoomLevel: Binding<Float>, sliderMoving: Binding<Bool>) {
         self._track = track
         self._isPlaying = isPlaying
         self._progress = progress
         self._playSpeed = speed
         self._isObserveMode = isObserve
         self._zoomLevel = zoomLevel
+        self._sliderMoving = sliderMoving
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -105,6 +107,9 @@ class MapViewController: UIViewController {
         if let marker {
             mapView.animate(toLocation: marker.position)
         }
+        // Zoom in one zoom level
+//        let zoomCamera = GMSCameraUpdate.zoomIn()
+//        mapView.animate(with: zoomCamera)
     }
     
     func removeTrack() {
@@ -198,16 +203,24 @@ class MapViewController: UIViewController {
         state = .play
         
         let clip = createClip(index: progress, animation: true)
+        
         serialQueue.async(group: group, execute: clip)
     }
     
     private func nextClip() {
+//        let clip: DispatchWorkItem
+//        if sliderMoving {
+//            clip = createClip(index: progress, animation: false)
+//        } else {
+//            clip = createClip(index: progress, animation: true)
+//        }
+        
         let clip = createClip(index: progress, animation: false)
         serialQueue.async(group: group, execute: clip)
     }
     
     private func createClip(index: Int, animation: Bool) -> DispatchWorkItem {
-        DispatchWorkItem {
+        let execute = DispatchWorkItem {
             guard let track = self.track else { return }
             let locationPoint = track.locationPoints[index]
             self.moveToSegment(locationPoint, animation: animation) {
@@ -215,10 +228,14 @@ class MapViewController: UIViewController {
                     self.progress += 1
                     self.nextClipAnimation()
                 } else {
-                    self.nextClip()
+                    if self.sliderMoving {
+                        self.nextClip()
+                    }
                 }
             }
         }
+        
+        return execute
     }
     
     private func addMarkerToMap(coordinates: CLLocationCoordinate2D) {
@@ -234,7 +251,6 @@ class MapViewController: UIViewController {
     
     private func moveToSegment(_ locationPoint: LocationPoint, animation: Bool, completion: @escaping (() -> Void)) {
         let next = locationPoint.coordinate
-        let nextCam = GMSCameraUpdate.setTarget(next, zoom: zoomLevel)
         let rotation = locationPoint.course ?? .zero
         let duration = animation ? duration(locationPoint) : 0
         
@@ -247,14 +263,15 @@ class MapViewController: UIViewController {
         marker?.rotation = rotation
         marker?.position = next
         if isObserveMode {
-            mapView.animate(with: nextCam)
+            let cameraUpdate = GMSCameraUpdate.setTarget(next, zoom: zoomLevel)
+            mapView.animate(with: cameraUpdate)
         }
         
         CATransaction.commit()
     }
     
     private func duration(_ locationPoint: LocationPoint) -> TimeInterval {
-        let animateFactor = 20.0
+        let animateFactor = 1.0
         let speedFactor = Double(playSpeed.rawValue) * animateFactor
         let speed = locationPoint.speed ?? 0
         let distance = locationPoint.distance ?? 0

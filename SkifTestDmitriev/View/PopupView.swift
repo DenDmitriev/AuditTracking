@@ -28,7 +28,7 @@ struct PopupView<Content>: View where Content: View {
                         
                         Rectangle()
                             .fill(AppColors.placeholder)
-                            .frame(height: 0.25)
+                            .frame(height: AppLayout.borderWidth)
                             .frame(maxWidth: .infinity)
                         
                         Button {
@@ -41,7 +41,7 @@ struct PopupView<Content>: View where Content: View {
                     }
                     .overlay(
                         RoundedRectangle(cornerRadius: cornerRadius)
-                            .stroke(AppColors.placeholder, lineWidth: 0.25)
+                            .stroke(AppColors.placeholder, lineWidth: AppLayout.borderWidth)
                     )
                     .frame(width: geometry.size.width - 21 - 21)
                     .background(.background)

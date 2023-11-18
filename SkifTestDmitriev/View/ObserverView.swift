@@ -16,7 +16,7 @@ struct ObserverView: View {
             isObserve.toggle()
         } label: {
             RoundedRectangle(cornerRadius: 10)
-                .stroke(AppColors.placeholder, lineWidth: 0.25)
+                .stroke(AppColors.placeholder, lineWidth: AppLayout.borderWidth)
                 .background(content: {
                     if isObserve {
                         RoundedRectangle(cornerRadius: 10)

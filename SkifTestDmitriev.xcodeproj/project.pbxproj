@@ -57,6 +57,10 @@
 		952CC1612B04EB320036BABF /* CustomLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC1602B04EB320036BABF /* CustomLabel.swift */; };
 		952CC1632B053CBD0036BABF /* CLLocationCoordinate2DExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC1622B053CBD0036BABF /* CLLocationCoordinate2DExtension.swift */; };
 		952CC1652B05E74E0036BABF /* MapViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952CC1642B05E74E0036BABF /* MapViewCoordinator.swift */; };
+		9581765E2B08902600AE8E25 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9581765D2B08902600AE8E25 /* ViewExtension.swift */; };
+		958176602B08904E00AE8E25 /* EdgeBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9581765F2B08904E00AE8E25 /* EdgeBorder.swift */; };
+		958176622B0890CD00AE8E25 /* AppLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958176612B0890CD00AE8E25 /* AppLayout.swift */; };
+		958176642B08914B00AE8E25 /* TrackContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958176632B08914B00AE8E25 /* TrackContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +116,10 @@
 		952CC1602B04EB320036BABF /* CustomLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLabel.swift; sourceTree = "<group>"; };
 		952CC1622B053CBD0036BABF /* CLLocationCoordinate2DExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2DExtension.swift; sourceTree = "<group>"; };
 		952CC1642B05E74E0036BABF /* MapViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewCoordinator.swift; sourceTree = "<group>"; };
+		9581765D2B08902600AE8E25 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		9581765F2B08904E00AE8E25 /* EdgeBorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeBorder.swift; sourceTree = "<group>"; };
+		958176612B0890CD00AE8E25 /* AppLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLayout.swift; sourceTree = "<group>"; };
+		958176632B08914B00AE8E25 /* TrackContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +227,8 @@
 				952CC1512B0486430036BABF /* Extensions */,
 				952CC1232B02457E0036BABF /* AppColors.swift */,
 				952CC1272B0299E90036BABF /* AppFonts.swift */,
+				958176612B0890CD00AE8E25 /* AppLayout.swift */,
+				9581765F2B08904E00AE8E25 /* EdgeBorder.swift */,
 			);
 			path = Utilites;
 			sourceTree = "<group>";
@@ -227,6 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				952CC0CF2B022E9A0036BABF /* ContentView.swift */,
+				958176632B08914B00AE8E25 /* TrackContentView.swift */,
 				952CC1582B04B5350036BABF /* LoadingView.swift */,
 				952CC15C2B04BEC90036BABF /* PopupView.swift */,
 				952CC11E2B0241AF0036BABF /* TrackInfoView.swift */,
@@ -278,6 +289,7 @@
 			children = (
 				952CC1522B04864C0036BABF /* DateExtension.swift */,
 				952CC1622B053CBD0036BABF /* CLLocationCoordinate2DExtension.swift */,
+				9581765D2B08902600AE8E25 /* ViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -359,15 +371,19 @@
 				952CC0D02B022E9A0036BABF /* ContentView.swift in Sources */,
 				952CC0CE2B022E9A0036BABF /* SkifTestDmitrievApp.swift in Sources */,
 				952CC1362B0340680036BABF /* Speed.swift in Sources */,
+				958176602B08904E00AE8E25 /* EdgeBorder.swift in Sources */,
 				952CC15F2B04E0780036BABF /* Track.swift in Sources */,
+				958176622B0890CD00AE8E25 /* AppLayout.swift in Sources */,
 				952CC12C2B029FCE0036BABF /* TrackPlaySpeed.swift in Sources */,
 				952CC1612B04EB320036BABF /* CustomLabel.swift in Sources */,
 				952CC12E2B02A8B90036BABF /* ObserverView.swift in Sources */,
 				952CC1482B037ABD0036BABF /* LocationPoint.swift in Sources */,
+				9581765E2B08902600AE8E25 /* ViewExtension.swift in Sources */,
 				952CC14A2B0380010036BABF /* ContentViewModel.swift in Sources */,
 				952CC1632B053CBD0036BABF /* CLLocationCoordinate2DExtension.swift in Sources */,
 				952CC1212B0244230036BABF /* TrackSliderView.swift in Sources */,
 				952CC1282B0299E90036BABF /* AppFonts.swift in Sources */,
+				958176642B08914B00AE8E25 /* TrackContentView.swift in Sources */,
 				952CC15D2B04BEC90036BABF /* PopupView.swift in Sources */,
 				952CC14E2B03909B0036BABF /* ZoomControl.swift in Sources */,
 				952CC1652B05E74E0036BABF /* MapViewCoordinator.swift in Sources */,

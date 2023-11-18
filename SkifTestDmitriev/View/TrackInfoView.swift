@@ -10,13 +10,13 @@ import SwiftUI
 struct TrackInfoView: View {
     
     @EnvironmentObject var trackManager: TrackManager
-    @Binding var maxSpeed: Int?
-    @Binding var distance: Int?
-    @Binding var startAt: Date?
-    @Binding var finishIn: Date?
+    @State var maxSpeed: Int?
+    @State var distance: Int?
+    @State var startAt: Date?
+    @State var finishIn: Date?
     
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 4) {
             Text("Бензовоз")
                 .font(AppFonts.titleOne)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -33,6 +33,20 @@ struct TrackInfoView: View {
                 CustomLabel(systemName: "speedometer", text: "До \((maxSpeed ?? .zero).formatted(.number))км/ч")
             }
             .font(AppFonts.regular)
+        }
+        .onReceive(trackManager.$track) { newTrack in
+            if let maxSpeed = newTrack?.maxSpeed {
+                self.maxSpeed = Int(maxSpeed.rounded())
+            }
+            if let distance = newTrack?.distance {
+                self.distance = Int(distance.rounded())
+            }
+            if let startAt = newTrack?.startAt {
+                self.startAt = startAt
+            }
+            if let finishIn = newTrack?.finishIn {
+                self.finishIn = finishIn
+            }
         }
     }
     
@@ -62,12 +76,7 @@ struct TrackInfoView: View {
 
 struct TrackInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        TrackInfoView(
-            maxSpeed: .constant(95),
-            distance: .constant(1246),
-            startAt: .constant(Date.now - 24 * 12 * 3600),
-            finishIn: .constant(Date.now)
-        )
-        .environmentObject(TrackManager())
+        TrackInfoView()
+            .environmentObject(TrackManager())
     }
 }

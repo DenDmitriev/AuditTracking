@@ -17,13 +17,11 @@ struct ContentView: View {
     @State var zoomLevel: Float = zoomDefaultLevel
     @State var isPlaying: Bool = false
     @State var showInfo: Bool = false
-    @State var maxSpeed: Int? = .zero
-    @State var distance: Int? = .zero
-    @State var startAt: Date?
-    @State var finishIn: Date?
     @State var trackPlaySpeed: TrackPlaySpeed = .one
     @State var mapRouter: MapViewRouter = .empty
     @State var sliderMoving: Bool = false
+    
+    @State var trackContentFrame: CGRect = .zero
     
     private static let zoomObserveLevel: Float = 18
     private static let zoomDefaultLevel: Float = 10
@@ -47,8 +45,15 @@ struct ContentView: View {
             .overlay {
                 ZoomControlView(zoom: $zoomLevel)
                     .frame(maxWidth: .infinity, alignment: .trailing)
-                    .padding(16)
                     .offset(y: -20)
+                    .padding(16)
+            }
+            .overlay {
+                ObserverView(isObserve: $isObserve)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .frame(maxHeight: .infinity, alignment: .bottom)
+                    .offset(y: -trackContentFrame.height)
+                    .padding(16)
             }
             .onChange(of: isObserve) { isObserve in
                 if isObserve {
@@ -65,57 +70,22 @@ struct ContentView: View {
                 mapRouter = newValue ? .slider : .player
             }
             
-            VStack(spacing: 0) {
-                ObserverView(isObserve: $isObserve)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .padding(16)
-                
-//                TrackSlider(
-//                    value: Binding<Double>(
-//                        get: { Double(trackManager.progress) },
-//                        set: { value in trackManager.progress = Int(value) }
-//                    ),
-//                    total: Binding<Double>(
-//                        get: { Double(trackManager.total) },
-//                        set: { _ in }
-//                    ),
-//                    isEditing: $sliderMoving
-//                )
-                
-                VStack(spacing: 8) {
-                    TrackInfoView(
-                        maxSpeed: $maxSpeed,
-                        distance: $distance,
-                        startAt: $startAt,
-                        finishIn: $finishIn
-                    )
-                    
-                    TrackSliderView(
-                        value: $trackManager.progress,
-                        total: $trackManager.total,
-                        speed: trackManager.speed,
-                        isEditing: $sliderMoving
-                    )
-                    .disabled(isDisableControl())
-                    
-                    TrackControlView(
-                        trackSpeed: $trackPlaySpeed,
-                        isPlay: $isPlaying,
-                        showInfo: $showInfo
-                    )
-                    .disabled(isDisableControl())
-                    
-                }
-                .padding(16)
-                .padding(.bottom, 20)
-                .background(.regularMaterial)
-                .overlay {
-                    VStack {
-                        Rectangle()
-                            .fill(AppColors.placeholder)
-                            .frame(height: 0.25)
-                        Spacer()
-                    }
+            TrackContentView(
+                sliderMoving: $sliderMoving,
+                isPlaying: $isPlaying,
+                showInfo: $showInfo,
+                trackPlaySpeed: $trackPlaySpeed
+            )
+            .padding(.bottom, 20)
+            .background(.regularMaterial)
+            .border(width: AppLayout.borderWidth, edges: [.top], color: AppColors.placeholder)
+            .overlay {
+                GeometryReader { geometryProxy in
+                    let frame = geometryProxy.frame(in: .global)
+                    Color.clear
+                        .onAppear {
+                            trackContentFrame = frame
+                        }
                 }
             }
         }
@@ -134,18 +104,6 @@ struct ContentView: View {
             }
         }
         .onReceive(trackManager.$track) { newTrack in
-            if let maxSpeed = newTrack?.maxSpeed {
-                self.maxSpeed = Int(maxSpeed.rounded())
-            }
-            if let distance = newTrack?.distance {
-                self.distance = Int(distance.rounded())
-            }
-            if let startAt = newTrack?.startAt {
-                self.startAt = startAt
-            }
-            if let finishIn = newTrack?.finishIn {
-                self.finishIn = finishIn
-            }
             mapRouter = .loadTrack
         }
     }

@@ -20,7 +20,7 @@ struct ZoomControlView: View {
                 zoom += 1
             } label: {
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(AppColors.placeholder, lineWidth: 0.25)
+                    .stroke(AppColors.placeholder, lineWidth: AppLayout.borderWidth)
                     .background(RoundedRectangle(cornerRadius: 10).fill(.regularMaterial))
                     .frame(width: 44, height: 44)
                     .overlay {
@@ -37,7 +37,7 @@ struct ZoomControlView: View {
                 zoom -= 1
             } label: {
                 RoundedRectangle(cornerRadius: 10)
-                    .stroke(AppColors.placeholder, lineWidth: 0.25)
+                    .stroke(AppColors.placeholder, lineWidth: AppLayout.borderWidth)
                     .background(RoundedRectangle(cornerRadius: 10).fill(.regularMaterial))
                     .frame(width: 44, height: 44)
                     .overlay {
@@ -66,8 +66,8 @@ struct ZoomControlView: View {
     }
 }
 
-//struct ZoomControlView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        ZoomControlView(zoom: .constant(1), zoomCamera: .constant(1))
-//    }
-//}
+struct ZoomControlView_Previews: PreviewProvider {
+    static var previews: some View {
+        ZoomControlView(zoom: .constant(1))
+    }
+}

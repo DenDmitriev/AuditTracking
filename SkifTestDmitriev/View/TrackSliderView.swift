@@ -86,7 +86,7 @@ struct TrackSliderView: View {
             }
         }
         .frame(height: 50)
-        .padding(.horizontal, 10)
+        .padding(.horizontal, 8)
         
         
     }

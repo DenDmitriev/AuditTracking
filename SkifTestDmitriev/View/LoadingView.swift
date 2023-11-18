@@ -10,7 +10,8 @@ import SwiftUI
 struct LoadingView: View {
     
     @Binding var isShowing: Bool
-    var text: String?
+    @Binding var text: String?
+    @Binding var progress: LoadingProgress?
     
     var body: some View {
         GeometryReader { geometry in
@@ -21,16 +22,33 @@ struct LoadingView: View {
                         .edgesIgnoringSafeArea(.all)
                     
                     VStack(spacing: 16) {
-                        ProgressView()
+                        if let progress {
+                            ProgressView(value: Double(progress.value), total: Double(progress.total)) {  }
+                                .foregroundColor(AppColors.accentColor)
+                        } else {
+                            ProgressView()
+                        }
+                        
                         Text(text ?? "").font(.body)
                     }
                     .padding(24)
-                    .progressViewStyle(.automatic)
                     .background(.regularMaterial)
                     .foregroundColor(Color.primary)
                     .cornerRadius(16)
+                    .frame(
+                        minWidth: geometry.size.width / 3,
+                        idealWidth: geometry.size.width / 2,
+                        maxWidth: geometry.size.width - 64
+                    )
                 }
             }
         }
     }
 }
+
+struct LoadingView_Previews: PreviewProvider {
+    static var previews: some View {
+        LoadingView(isShowing: .constant(true), text: .constant("Message"), progress: .constant(nil))
+    }
+}
+

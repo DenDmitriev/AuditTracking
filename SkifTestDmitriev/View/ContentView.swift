@@ -20,7 +20,6 @@ struct ContentView: View {
     @State var trackPlaySpeed: TrackPlaySpeed = .one
     @State var mapRouter: MapViewRouter = .empty
     @State var sliderMoving: Bool = false
-    
     @State var trackContentFrame: CGRect = .zero
     
     private static let zoomObserveLevel: Float = 18
@@ -54,6 +53,7 @@ struct ContentView: View {
                     .frame(maxHeight: .infinity, alignment: .bottom)
                     .offset(y: -trackContentFrame.height)
                     .padding(16)
+                    .disabled(isDisableControl())
             }
             .onChange(of: isObserve) { isObserve in
                 if isObserve {
@@ -90,7 +90,7 @@ struct ContentView: View {
             }
         }
         .overlay {
-            LoadingView(isShowing: $trackManager.isProgress, text: "Подготовка пути")
+            LoadingView(isShowing: $trackManager.isLoading, text: $trackManager.message, progress: $trackManager.loadingProgress)
         }
         .overlay {
             PopupView(isShowing: $showInfo) {
@@ -117,6 +117,7 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         let trackManager = TrackManager()
         ContentView(viewModel: ContentViewModel(trackManager: trackManager))
+//            .environmentObject(trackManager)
             .environmentObject(TrackManager())
     }
 }

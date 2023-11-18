@@ -10,6 +10,7 @@ import SwiftUI
 struct ObserverView: View {
     
     @Binding var isObserve: Bool
+    @Environment(\.isEnabled) private var isEnabled: Bool
     
     var body: some View {
         Button {
@@ -31,6 +32,7 @@ struct ObserverView: View {
                     Image(systemName: "eye")
                         .foregroundColor(isObserve ? .white : AppColors.icon)
                 }
+                .opacity(isEnabled ? 1 : 0)
         }
     }
 }

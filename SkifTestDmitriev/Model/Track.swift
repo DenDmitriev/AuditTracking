@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Track {
+class Track: Identifiable {
+    let id: UUID
     let locationPoints: [LocationPoint]
     let distance: Double // km
     let maxSpeed: Double // km/h
@@ -20,11 +21,18 @@ struct Track {
         locationPoints.last?.timestamp
     }
     
-    static func buildTrack(json: [LocationPoint]) -> Self {
+    init(locationPoints: [LocationPoint], distance: Double, maxSpeed: Double) {
+        self.id = UUID()
+        self.locationPoints = locationPoints
+        self.distance = distance
+        self.maxSpeed = maxSpeed
+    }
+    
+    static func buildTrack(json: [LocationPoint]) -> Track {
         var distanceM: Double = .zero // m
         var maxSpeedMS: Double = .zero // m/s
         let count = json.count
-        let locationPoints = json.enumerated().map { (index, locationPoint) -> LocationPoint in
+        let locationPoints = json.enumerated().compactMap { (index, locationPoint) -> LocationPoint? in
             guard count >= 2 else { return locationPoint }
             var locationPoint = locationPoint
             if index == .zero {
@@ -33,9 +41,21 @@ struct Track {
                 let indexBefore = json.index(before: index)
                 let previous = json[indexBefore]
                 locationPoint.calculateSpeedAndDistance(previous: previous)
+                let distance = locationPoint.distance ?? .zero
                 
-                distanceM += locationPoint.distance ?? .zero
-                if let speed = locationPoint.speed, speed > maxSpeedMS {
+                // Delete teleport point
+                if distance > 1000 {
+                    return nil
+                }
+                
+                distanceM += distance
+                
+                // Check speed for max
+                if let speed = locationPoint.speed,
+                   speed > maxSpeedMS,
+                   speed < 50, // less 50 m/s
+                   100...10000 ~= distance // more 100 m less 10km
+                {
                     maxSpeedMS = speed
                 }
             }
@@ -53,11 +73,13 @@ struct Track {
             return locationPoint
         }
         let distance = distanceM / 1000
-        let maxSpeed = (maxSpeedMS / 1000) / 60 * 60
+        let maxSpeed = (maxSpeedMS / 1000) * 60 * 60
         return Track(locationPoints: locationPoints, distance: distance, maxSpeed: maxSpeed)
     }
 }
 
 extension Track: Equatable {
-    
+    static func == (lhs: Track, rhs: Track) -> Bool {
+        lhs.id == rhs.id
+    }
 }

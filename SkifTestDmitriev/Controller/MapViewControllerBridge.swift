@@ -15,8 +15,9 @@ struct MapViewControllerBridge: UIViewControllerRepresentable {
     @Binding var track: Track?
     @Binding var isPlaying: Bool
     @Binding var progress: Int
-    @Binding var speed: TrackPlaySpeed
+    @Binding var playSpeed: TrackPlaySpeed
     @Binding var isObserve: Bool
+    @Binding var mapRouter: MapViewRouter
     
     var onAnimationEnded: () -> ()
     var onZoomChanged: (Float) -> ()
@@ -26,7 +27,7 @@ struct MapViewControllerBridge: UIViewControllerRepresentable {
             track: $track,
             isPlaying: $isPlaying,
             progress: $progress,
-            speed: $speed,
+            speed: $playSpeed,
             isObserve: $isObserve,
             zoomLevel: $zoomLevel
         )
@@ -38,10 +39,17 @@ struct MapViewControllerBridge: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: MapViewController, context: Context) {
-        animateToZoom(viewController: uiViewController)
-        animateToTrack(viewController: uiViewController)
-        if isPlaying {
+        switch mapRouter {
+        case .zoom:
+            animateToZoom(viewController: uiViewController)
+        case .loadTrack:
+            animateToTrack(viewController: uiViewController)
+        case .player:
             playTrack(viewController: uiViewController)
+        case .slider:
+            moveSlider(viewController: uiViewController)
+        case .empty:
+            return
         }
     }
     
@@ -69,6 +77,10 @@ struct MapViewControllerBridge: UIViewControllerRepresentable {
                 }
             }
         }
+    }
+    
+    private func moveSlider(viewController: MapViewController) {
+        viewController.moveSlider()
     }
     
     func makeCoordinator() -> MapViewCoordinator {

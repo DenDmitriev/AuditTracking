@@ -25,6 +25,7 @@ final class MapViewCoordinator: NSObject, GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         syncZoomLevel(mapView)
+        mapViewControllerBridge.onAnimationEnded()
     }
     
     private func syncZoomLevel(_ mapView: GMSMapView) {

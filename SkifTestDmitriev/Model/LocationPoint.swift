@@ -39,8 +39,8 @@ struct LocationPoint: Decodable, Hashable {
         let timestampString = try container.decode(String.self)
         self.timestamp = formatter.date(from: timestampString + "Z")!
         
-        self.latitude = try container.decode(Double.self)
         self.longitude = try container.decode(Double.self)
+        self.latitude = try container.decode(Double.self)
     }
     
     func hash(into hasher: inout Hasher) {

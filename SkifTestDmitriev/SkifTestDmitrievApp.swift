@@ -20,14 +20,17 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 @main
 struct SkifTestDmitrievApp: App {
     
+    @StateObject private var trackManager: TrackManager = .init()
+    
     @UIApplicationDelegateAdaptor(AppDelegate.self)
     var appDelegate
     
-    var contentViewModel: ContentViewModel = .init()
-    
     var body: some Scene {
+        var contentViewModel: ContentViewModel = .init(trackManager: trackManager)
+        
         WindowGroup {
             ContentView(viewModel: contentViewModel)
+                .environmentObject(trackManager)
         }
     }
 }

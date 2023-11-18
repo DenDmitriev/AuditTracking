@@ -14,7 +14,7 @@ class MapViewController: UIViewController {
     @Binding var track: Track?
     @Binding var isPlaying: Bool
     @Binding var progress: Int
-    @Binding var speed: TrackPlaySpeed
+    @Binding var playSpeed: TrackPlaySpeed
     @Binding var isObserveMode: Bool
     @Binding var zoomLevel: Float
     
@@ -22,12 +22,12 @@ class MapViewController: UIViewController {
         return self.view as? GMSMapView ?? map
     }
     
-    private var state: State = .ready
+    private var state: State = .empty
     private let serialQueue = DispatchQueue.main
     private let group = DispatchGroup()
     private let defaultStrokeWidth: CGFloat = 6
     private var trackIsShow: Bool = false
-    private let map = GMSMapView(frame: .zero)
+    private let map = GMSMapView()
     private var marker: GMSMarker?
     
     init(track: Binding<Track?>, isPlaying: Binding<Bool>, progress: Binding<Int>, speed:
@@ -35,7 +35,7 @@ class MapViewController: UIViewController {
         self._track = track
         self._isPlaying = isPlaying
         self._progress = progress
-        self._speed = speed
+        self._playSpeed = speed
         self._isObserveMode = isObserve
         self._zoomLevel = zoomLevel
         super.init(nibName: nil, bundle: nil)
@@ -70,15 +70,34 @@ class MapViewController: UIViewController {
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
                 self.trackIsShow = true
+                self.state = .ready
                 handler()
             })
         }
     }
     
-    func removeTrack() {
-        trackIsShow = false
-        mapView.clear()
-        track = nil
+    func moveSlider() {
+        switch state {
+        case .ready, .pause, .play:
+            nextClip()
+        default:
+            return
+        }
+    }
+    
+    func playTrack() {
+        switch state {
+        case .ready:
+            guard let track else { return }
+            addMarkerToMap(coordinates: track.locationPoints[progress].coordinate)
+            nextClipAnimation()
+        case .play:
+            return
+        case .pause:
+            nextClipAnimation()
+        default:
+            return
+        }
     }
     
     func zoom(to zoom: Float) {
@@ -88,19 +107,10 @@ class MapViewController: UIViewController {
         }
     }
     
-    func playTrack() {
-        switch state {
-        case .ready:
-            guard let track else { return }
-            addMarkerToMap(coordinates: track.locationPoints[progress].coordinate)
-            nextClip()
-        case .play:
-            return
-        case .pause:
-            if isPlaying {
-                nextClip()
-            }
-        }
+    func removeTrack() {
+        trackIsShow = false
+        mapView.clear()
+        track = nil
     }
     
     // MARK: - Private methods
@@ -172,10 +182,10 @@ class MapViewController: UIViewController {
     // MARK: Marker Animation
     
     enum State {
-        case ready, play, pause
+        case ready, play, pause, empty
     }
     
-    private func nextClip() {
+    private func nextClipAnimation() {
         guard
             let track,
             isPlaying,
@@ -187,20 +197,26 @@ class MapViewController: UIViewController {
         
         state = .play
         
-        let clip = createClip(index: progress)
+        let clip = createClip(index: progress, animation: true)
         serialQueue.async(group: group, execute: clip)
     }
     
-    private func createClip(index: Int) -> DispatchWorkItem {
+    private func nextClip() {
+        let clip = createClip(index: progress, animation: false)
+        serialQueue.async(group: group, execute: clip)
+    }
+    
+    private func createClip(index: Int, animation: Bool) -> DispatchWorkItem {
         DispatchWorkItem {
-            guard
-                let track = self.track,
-                self.isPlaying
-            else { return }
+            guard let track = self.track else { return }
             let locationPoint = track.locationPoints[index]
-            self.animateSegment(locationPoint) {
-                self.progress += 1
-                self.nextClip()
+            self.moveToSegment(locationPoint, animation: animation) {
+                if animation {
+                    self.progress += 1
+                    self.nextClipAnimation()
+                } else {
+                    self.nextClip()
+                }
             }
         }
     }
@@ -216,11 +232,11 @@ class MapViewController: UIViewController {
         marker?.map = mapView
     }
     
-    private func animateSegment(_ locationPoint: LocationPoint, completion: @escaping (() -> Void)) {
+    private func moveToSegment(_ locationPoint: LocationPoint, animation: Bool, completion: @escaping (() -> Void)) {
         let next = locationPoint.coordinate
         let nextCam = GMSCameraUpdate.setTarget(next, zoom: zoomLevel)
         let rotation = locationPoint.course ?? .zero
-        let duration = duration(locationPoint)
+        let duration = animation ? duration(locationPoint) : 0
         
         CATransaction.begin()
         CATransaction.setAnimationDuration(duration)
@@ -235,22 +251,19 @@ class MapViewController: UIViewController {
         }
         
         CATransaction.commit()
-        
-//        DispatchQueue.main.asyncAfter(deadline: .now() + duration, execute: {
-//            completion()
-//        })
     }
     
     private func duration(_ locationPoint: LocationPoint) -> TimeInterval {
-        let speedFactor = Double(speed.rawValue)
+        let animateFactor = 20.0
+        let speedFactor = Double(playSpeed.rawValue) * animateFactor
         let speed = locationPoint.speed ?? 0
         let distance = locationPoint.distance ?? 0
         var duration: TimeInterval
-        let animateFactor = 20.0
+        
         if speed == 0 {
             duration = 0
         } else {
-            duration = speedFactor * distance / speed / animateFactor
+            duration = distance / speed / speedFactor
         }
         
         let rounded = (duration * 10).rounded() / 10

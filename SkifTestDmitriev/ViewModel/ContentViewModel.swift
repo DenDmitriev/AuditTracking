@@ -10,25 +10,13 @@ import MapKit
 
 class ContentViewModel: ObservableObject {
     
-    @Published var track: Track?
-    @Published var isProgress: Bool = false
+    @Published var trackManager: TrackManager
     
-    func fetchTrack() async throws {
-        guard let url = URL(string: "https://dev5.skif.pro/coordinates.json") else { return }
-        updateProgress(true)
-        let (data, _) = try await URLSession.shared.data(from: url)
-        let decoder = JSONDecoder()
-        let json = try decoder.decode([LocationPoint].self, from: data)
-        let track = Track.buildTrack(json: json)
-        DispatchQueue.main.async {
-            self.track = track
-            self.updateProgress(false)
-        }
+    init(trackManager: TrackManager) {
+        self.trackManager = trackManager
     }
     
-    private func updateProgress(_ isProgress: Bool) {
-        DispatchQueue.main.async {
-            self.isProgress = isProgress
-        }
+    func fetchTrack() async throws {
+        try await trackManager.fetchTrack()
     }
 }

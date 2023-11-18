@@ -48,11 +48,11 @@ enum Speed: Int, CaseIterable {
     
     init(speed: Int) {
         switch speed {
-        case ...70:
+        case ...20: // 70
             self = .city
-        case 71...90:
+        case 21...25: // 71...90
             self = .road
-        case 91...:
+        case 26...: // 91...
             self = .highway
         default:
             self = .city

@@ -127,6 +127,7 @@ class MapViewController: UIViewController {
         polyline.strokeWidth = defaultStrokeWidth
         polyline.path = buildPath(for: locations)
         polyline.spans = buildSpans(for: locations)
+//        polyline.spans = buildSpansNew(for: locations)
         
         return polyline
     }

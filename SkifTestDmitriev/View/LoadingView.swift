@@ -32,7 +32,9 @@ struct LoadingView: View {
                         Text(text ?? "").font(.body)
                     }
                     .padding(24)
-                    .background(.regularMaterial)
+                    .background(
+                        VisualEffectView(effect: UIBlurEffect(style: .prominent))
+                    )
                     .foregroundColor(Color.primary)
                     .cornerRadius(16)
                     .frame(

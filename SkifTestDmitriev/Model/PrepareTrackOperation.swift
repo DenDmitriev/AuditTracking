@@ -20,7 +20,7 @@ class PrepareTrackOperation: Operation {
     
     override func main() {
         guard !isCancelled else { return }
-        var distanceM: Double = .zero // m
+        var distanceSumM: Double = .zero // m
         var maxSpeedMS: Double = .zero // m/s
         let count = json.count
         var progressPercent: Int = 0
@@ -33,22 +33,44 @@ class PrepareTrackOperation: Operation {
                 let indexBefore = json.index(before: index)
                 let previous = json[indexBefore]
                 locationPoint.calculateSpeedAndDistance(previous: previous)
-                let distance = locationPoint.distance ?? .zero
+                let distance = locationPoint.distance ?? .zero // м
+                let speed = (locationPoint.speed ?? 0) / 1000 * 3600 // км/ч
+                let time = locationPoint.timestamp - previous.timestamp // сек
                 
-                // Delete teleport point
-                if distance > 1000 {
+                // Check teleport point by speed
+                if speed > 150, time <= 5 {
                     return nil
                 }
                 
-                distanceM += distance
+                // Check teleport point by distance
+                if distance > 3000, time <= 60 {
+                    return nil
+                }
+                
+                // Delete teleport by location between previous and next
+                if index < count - 1 {
+                    let indexAfter = json.index(after: index)
+                    let next = json[indexAfter]
+                    let distanceBetweenPreviousAndCurrent = (previous.distance ?? .zero) + distance
+                    let distanceBetweenPreviousAndNext = next.clLocation.distance(from: previous.clLocation)
+                    
+                    if (distanceBetweenPreviousAndNext * 2) < distanceBetweenPreviousAndCurrent {
+                        return nil
+                    }
+                }
+                
+//                print("\(Int(speed));" + "\(Int(duration));" + "\(Int(distance));;")
+                
+                distanceSumM += distance
                 
                 // Check speed for max
-                if let speed = locationPoint.speed,
-                   speed > maxSpeedMS,
-                   speed < 50, // less 50 m/s
-                   100...10000 ~= distance // more 100 m less 10km
+                if let speedMS = locationPoint.speed,
+                   speedMS > maxSpeedMS,
+                   speed < 200, // less 200 km/h
+                   100...10000 ~= distance, // more 100 m less 10km
+                   time > 3
                 {
-                    maxSpeedMS = speed
+                    maxSpeedMS = speedMS
                 }
             }
             
@@ -72,7 +94,7 @@ class PrepareTrackOperation: Operation {
             return locationPoint
         }
         
-        let distance = distanceM / 1000
+        let distance = distanceSumM / 1000
         let maxSpeed = (maxSpeedMS / 1000) * 60 * 60
         
         let track = Track(locationPoints: locationPoints, distance: distance, maxSpeed: maxSpeed)

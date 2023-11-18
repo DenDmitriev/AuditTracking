@@ -26,11 +26,11 @@ struct TrackInfoView: View {
                 
                 Spacer()
                 
-                CustomLabel(name: "distance", text: "\((distance ?? .zero).formatted(.number)) км")
+                CustomLabel(name: "distance", text: "\((distance ?? .zero)) км")
                 
                 Spacer()
                 
-                CustomLabel(systemName: "speedometer", text: "До \((maxSpeed ?? .zero).formatted(.number))км/ч")
+                CustomLabel(systemName: "speedometer", text: "До \((maxSpeed ?? .zero))км/ч")
             }
             .font(AppFonts.regular)
         }

@@ -22,7 +22,7 @@ struct ContentView: View {
     @State var sliderMoving: Bool = false
     @State var trackContentFrame: CGRect = .zero
     
-    private static let zoomObserveLevel: Float = 18
+    private static let zoomObserveLevel: Float = 16
     private static let zoomDefaultLevel: Float = 10
     
     var body: some View {
@@ -42,20 +42,6 @@ struct ContentView: View {
                 onZoomChanged: { zoomLevelCamera in
                     self.zoomLevel = zoomLevelCamera
                 })
-            .overlay {
-                ZoomControlView(zoom: $zoomLevel)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .offset(y: -20)
-                    .padding(16)
-            }
-            .overlay {
-                ObserverView(isObserve: $isObserve)
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .frame(maxHeight: .infinity, alignment: .bottom)
-                    .offset(y: -trackContentFrame.height)
-                    .padding(16)
-                    .disabled(isDisableControl())
-            }
             .onChange(of: isObserve) { isObserve in
                 if isObserve {
                     zoomLevel = Self.zoomObserveLevel
@@ -71,6 +57,18 @@ struct ContentView: View {
                 mapRouter = newValue ? .slider : .player
             }
             
+            ZoomControlView(zoom: $zoomLevel)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .frame(maxHeight: .infinity, alignment: .center)
+                .offset(y: -20)
+                .padding(16)
+            
+            ObserverView(isObserve: $isObserve)
+                .frame(maxWidth: .infinity, alignment: .trailing)
+                .offset(y: -trackContentFrame.height)
+                .padding(16)
+                .disabled(isDisableControl())
+            
             TrackContentView(
                 sliderMoving: $sliderMoving,
                 isPlaying: $isPlaying,
@@ -78,9 +76,11 @@ struct ContentView: View {
                 trackPlaySpeed: $trackPlaySpeed
             )
             .padding(.bottom, 20)
-            .background(.regularMaterial)
+            .background(
+                VisualEffectView(effect: UIBlurEffect(style: .prominent))
+            )
             .border(width: AppLayout.borderWidth, edges: [.top], color: AppColors.placeholder)
-            .overlay {
+            .overlay(
                 GeometryReader { geometryProxy in
                     let frame = geometryProxy.frame(in: .global)
                     Color.clear
@@ -88,16 +88,16 @@ struct ContentView: View {
                             trackContentFrame = frame
                         }
                 }
-            }
+            )
         }
-        .overlay {
+        .overlay(
             LoadingView(isShowing: $trackManager.isLoading, text: $trackManager.message, progress: $trackManager.loadingProgress)
-        }
-        .overlay {
+        )
+        .overlay(
             PopupView(isShowing: $showInfo) {
                 SpeedLegendView()
             }
-        }
+        )
         .ignoresSafeArea()
         .onAppear {
             Task {

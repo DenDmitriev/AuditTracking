@@ -19,16 +19,7 @@ struct ZoomControlView: View {
             Button {
                 zoom += 1
             } label: {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(AppColors.placeholder, lineWidth: AppLayout.borderWidth)
-                    .background(RoundedRectangle(cornerRadius: 10).fill(.regularMaterial))
-                    .frame(width: 44, height: 44)
-                    .overlay {
-                        Image(systemName: "plus")
-                            .foregroundColor(AppColors.iconSecondary)
-                            .font(.title)
-                            .fontWeight(.medium)
-                    }
+                buttonLabel(systemImage: "plus")
                     .opacity(isEnable(.in) ? 0 : 1)
             }
             .disabled(isEnable(.in))
@@ -36,19 +27,29 @@ struct ZoomControlView: View {
             Button {
                 zoom -= 1
             } label: {
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(AppColors.placeholder, lineWidth: AppLayout.borderWidth)
-                    .background(RoundedRectangle(cornerRadius: 10).fill(.regularMaterial))
-                    .frame(width: 44, height: 44)
-                    .overlay {
-                        Image(systemName: "minus")
-                            .foregroundColor(AppColors.iconSecondary)
-                            .font(.title)
-                            .fontWeight(.medium)
-                    }
+                buttonLabel(systemImage: "minus")
                     .opacity(isEnable(.out) ? 0 : 1)
             }
             .disabled(isEnable(.out))
+        }
+    }
+    
+    private func buttonLabel(systemImage: String) -> some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(AppColors.placeholder, lineWidth: AppLayout.borderWidth)
+                .background(
+                    Color.clear
+                        .background(
+                            VisualEffectView(effect: UIBlurEffect(style: .prominent))
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 10))
+                )
+                .frame(width: 44, height: 44)
+            
+            Image(systemName: systemImage)
+                .foregroundColor(AppColors.iconSecondary)
+                .font(AppFonts.icon)
         }
     }
     

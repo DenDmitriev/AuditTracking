@@ -17,7 +17,7 @@ struct SpeedLegendView: View {
                 .frame(maxWidth: .infinity, alignment: .center)
             
             HStack {
-                VStack (alignment: .leading){
+                VStack(alignment: .leading, spacing: 8) {
                     ForEach(Speed.allCases, id: \.rawValue) { speed in
                         HStack(spacing: .zero) {
                             Circle()

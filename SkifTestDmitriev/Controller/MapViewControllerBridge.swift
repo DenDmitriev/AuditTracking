@@ -11,10 +11,10 @@ import SwiftUI
 struct MapViewControllerBridge: UIViewControllerRepresentable {
     typealias UIViewControllerType = MapViewController
     
+    @ObservedObject var trackManager: TrackManager
     @Binding var zoomLevel: Float
-    @Binding var track: Track?
+    @Binding var track: Track
     @Binding var isPlaying: Bool
-    @Binding var progress: Int
     @Binding var playSpeed: TrackPlaySpeed
     @Binding var isObserve: Bool
     @Binding var mapRouter: MapViewRouter
@@ -25,9 +25,8 @@ struct MapViewControllerBridge: UIViewControllerRepresentable {
     
     func makeUIViewController(context: Context) -> MapViewController {
         let controller = MapViewController(
-            track: $track,
+            trackManager: trackManager,
             isPlaying: $isPlaying,
-            progress: $progress,
             speed: $playSpeed,
             isObserve: $isObserve,
             zoomLevel: $zoomLevel,
@@ -70,13 +69,11 @@ struct MapViewControllerBridge: UIViewControllerRepresentable {
     }
     
     private func animateToTrack(viewController: MapViewController) {
-        if let track {
-            let padding: CGFloat = 16
-            let insets = UIEdgeInsets(top: 50, left: padding, bottom: 250, right: padding)
-            viewController.drawTrack(track: track, padding: insets) {
-                DispatchQueue.main.async {
-                    onZoomChanged(viewController.mapView.camera.zoom)
-                }
+        let padding: CGFloat = 16
+        let insets = UIEdgeInsets(top: 50, left: padding, bottom: 250, right: padding)
+        viewController.drawTrack(track: track, padding: insets) {
+            DispatchQueue.main.async {
+                onZoomChanged(viewController.mapView.camera.zoom)
             }
         }
     }

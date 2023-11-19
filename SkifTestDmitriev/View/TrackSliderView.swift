@@ -10,7 +10,7 @@ import SwiftUI
 struct TrackSliderView: View {
     
     @Binding var value: Int
-    @Binding var total: Int
+    @State var total: Int
     @Binding var speed: Double?
     @Binding var isEditing: Bool
     
@@ -49,6 +49,17 @@ struct TrackSliderView: View {
                         }
                     }
                 }
+                .gesture(
+                    DragGesture(minimumDistance: 0)
+                        .onChanged({ value in
+                            isEditing = true
+                            let part = value.translation.width / width
+                            self.value = toValueable(part)
+                        })
+                        .onEnded { _ in
+                            isEditing = false
+                        }
+                )
                 
                 ZStack {
                     bubble
@@ -92,13 +103,21 @@ struct TrackSliderView: View {
     }
     
     var bubble: some View {
-        Circle()
-            .strokeBorder(AppColors.background, lineWidth: 2)
-            .background(
-                Circle()
-                    .foregroundColor(isEnabled ? AppColors.accentColor : AppColors.placeholder)
-            )
-            .frame(width: 20)
+        ZStack {
+            Circle()
+                .strokeBorder(AppColors.background, lineWidth: 2)
+                .background(
+                    Circle()
+                        .foregroundColor(isEnabled ? AppColors.accentColor : AppColors.placeholder)
+                )
+                .frame(width: 20)
+            
+            Circle()
+                .fill(.blue.opacity(0.01))
+                .blur(radius: 3)
+                .frame(maxWidth: .infinity)
+        }
+        
     }
     
     private func toPartable(_ value: Int) -> Double {
@@ -116,7 +135,7 @@ struct TrackSliderView: View {
 
 struct TrackSliderView_Previews: PreviewProvider {
     static var previews: some View {
-        TrackSliderView(value: .constant(50), total: .constant(100), speed: .constant(65), isEditing: .constant(false))
+        TrackSliderView(value: .constant(50), total: 100, speed: .constant(65), isEditing: .constant(false))
             .previewLayout(.fixed(width: 100, height: 100))
             .disabled(false)
     }

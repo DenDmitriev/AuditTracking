@@ -26,10 +26,9 @@ struct SkifTestDmitrievApp: App {
     var appDelegate
     
     var body: some Scene {
-        let contentViewModel: ContentViewModel = .init(trackManager: trackManager)
         
         WindowGroup {
-            ContentView(viewModel: contentViewModel)
+            ContentView()
                 .environmentObject(trackManager)
         }
     }

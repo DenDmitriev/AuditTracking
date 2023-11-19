@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UIKit.UIColor
+import GoogleMaps
 
 enum Speed: Int, CaseIterable {
     case city
@@ -45,6 +46,63 @@ enum Speed: Int, CaseIterable {
             return UIColor(named: "HighwaySpeed") ?? .gray
         }
     }
+    
+    var styleSolid: GMSStrokeStyle {
+        switch self {
+        case .city:
+            return Styles.city
+        case .road:
+            return Styles.road
+        case .highway:
+            return Styles.highway
+        }
+    }
+    
+    static func styleGradient(from: Speed, to: Speed) -> GMSStrokeStyle {
+        switch from {
+        case .city:
+            switch to {
+            case .city:
+                return Styles.city
+            case .road:
+                return Styles.cityToRoad
+            case .highway:
+                return Styles.cityToHighway
+            }
+        case .road:
+            switch to {
+            case .city:
+                return Styles.RoadToCity
+            case .road:
+                return Styles.road
+            case .highway:
+                return Styles.RoadToHighway
+            }
+        case .highway:
+            switch to {
+            case .city:
+                return Styles.HighwayToCity
+            case .road:
+                return Styles.HighwayToRoad
+            case .highway:
+                return Styles.highway
+            }
+        }
+    }
+    
+    struct Styles {
+        static let city: GMSStrokeStyle = .solidColor(Speed.city.uiColor)
+        static let road: GMSStrokeStyle = .solidColor(Speed.road.uiColor)
+        static let highway: GMSStrokeStyle = .solidColor(Speed.highway.uiColor)
+        
+        static let cityToRoad: GMSStrokeStyle = .gradient(from: Speed.city.uiColor, to: Speed.road.uiColor)
+        static let cityToHighway: GMSStrokeStyle = .gradient(from: Speed.city.uiColor, to: Speed.highway.uiColor)
+        static let RoadToHighway: GMSStrokeStyle = .gradient(from: Speed.road.uiColor, to: Speed.highway.uiColor)
+        static let RoadToCity: GMSStrokeStyle = .gradient(from: Speed.road.uiColor, to: Speed.city.uiColor)
+        static let HighwayToRoad: GMSStrokeStyle = .gradient(from: Speed.highway.uiColor, to: Speed.road.uiColor)
+        static let HighwayToCity: GMSStrokeStyle = .gradient(from: Speed.highway.uiColor, to: Speed.city.uiColor)
+    }
+    
     
     init(speed: Int) {
         switch speed {

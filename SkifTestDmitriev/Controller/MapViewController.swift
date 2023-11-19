@@ -11,13 +11,18 @@ import SwiftUI
 
 class MapViewController: UIViewController {
     
-    @Binding var track: Track?
+    @ObservedObject var trackManager: TrackManager
+//    var track: Track
     @Binding var isPlaying: Bool
-    @Binding var progress: Int
+//    @Binding var progress: Int
     @Binding var playSpeed: TrackPlaySpeed
     @Binding var isObserveMode: Bool
     @Binding var zoomLevel: Float
     @Binding var sliderMoving: Bool
+    
+    var track: Track {
+        trackManager.trackStore[trackManager.trackStore.selectedTrack]
+    }
     
     var mapView: GMSMapView {
         return self.view as? GMSMapView ?? map
@@ -31,15 +36,16 @@ class MapViewController: UIViewController {
     private let map = GMSMapView()
     private var marker: GMSMarker?
     
-    init(track: Binding<Track?>, isPlaying: Binding<Bool>, progress: Binding<Int>, speed:
+    init(trackManager: TrackManager, isPlaying: Binding<Bool>, speed:
          Binding<TrackPlaySpeed>, isObserve: Binding<Bool>, zoomLevel: Binding<Float>, sliderMoving: Binding<Bool>) {
-        self._track = track
+//        self._track = track
         self._isPlaying = isPlaying
-        self._progress = progress
+//        self._progress = progress
         self._playSpeed = speed
         self._isObserveMode = isObserve
         self._zoomLevel = zoomLevel
         self._sliderMoving = sliderMoving
+        self.trackManager = trackManager
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -70,9 +76,9 @@ class MapViewController: UIViewController {
             if let startLocation = track.locationPoints.first?.coordinate {
                 addMarkerToMap(coordinates: startLocation)
             }
+            self.trackIsShow = true
+            self.state = .ready
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: {
-                self.trackIsShow = true
-                self.state = .ready
                 handler()
             })
         }
@@ -90,8 +96,7 @@ class MapViewController: UIViewController {
     func playTrack() {
         switch state {
         case .ready:
-            guard let track else { return }
-            addMarkerToMap(coordinates: track.locationPoints[progress].coordinate)
+            addMarkerToMap(coordinates: track.locationPoints[trackManager.progress].coordinate)
             nextClipAnimation()
         case .play:
             return
@@ -115,7 +120,6 @@ class MapViewController: UIViewController {
     func removeTrack() {
         trackIsShow = false
         mapView.clear()
-        track = nil
     }
     
     // MARK: - Private methods
@@ -127,7 +131,18 @@ class MapViewController: UIViewController {
         polyline.strokeWidth = defaultStrokeWidth
         polyline.path = buildPath(for: locations)
         polyline.spans = buildSpans(for: locations)
-//        polyline.spans = buildSpansNew(for: locations)
+        
+        // Debug spans
+//        let solidRed = GMSStrokeStyle.solidColor(.red)
+//        let solidBlue = GMSStrokeStyle.solidColor(.blue)
+//        let solidBlueSpan = GMSStyleSpan(style: solidBlue)
+//        let redYellow = GMSStrokeStyle.gradient(from: .red, to: .yellow)
+//        let redYellowSpan = GMSStyleSpan(style: redYellow)
+//        polyline.spans = [
+//            GMSStyleSpan(style: solidRed),
+//            GMSStyleSpan(style: solidRed),
+//            GMSStyleSpan(style: redYellow)
+//        ]
         
         return polyline
     }
@@ -151,36 +166,55 @@ class MapViewController: UIViewController {
     
     private func buildSpans(for locations: [CLLocation]) -> [GMSStyleSpan] {
         var spans: [GMSStyleSpan] = []
-        locations.enumerated().forEach { index, location in
-            guard index != .zero else {
-                let color = Speed(speed: Int(location.speed)).uiColor
-                let span = GMSStrokeStyle.gradient(from: color, to: color)
-                let style = GMSStyleSpan(style: span)
-                spans.append(style)
-                return
+        let lastIndex = locations.count - 1
+        
+        for (index, location) in locations.enumerated() {
+            guard index < lastIndex else {
+                let speed = Speed(speed: Int(location.speed))
+                let solid = speed.styleSolid
+                let span = GMSStyleSpan(style: solid)
+                spans.append(span)
+                break
             }
-            let previous = locations[index - 1]
+            let nextLocation = locations[index + 1]
 
-            let colorFrom = Speed(speed: Int(previous.speed)).uiColor
-            let colorTo = Speed(speed: Int(location.speed)).uiColor
+            let speedFrom = Speed(speed: Int(location.speed))
+            let colorFrom = speedFrom.uiColor
+            
+            let speedTo = Speed(speed: Int(nextLocation.speed))
+            let colorTo = speedTo.uiColor
 
+//            let style = GMSStrokeStyle.gradient(from: colorFrom, to: colorTo)
+//            let span = GMSStyleSpan(style: style)
+//            spans.append(span)
+            
             if colorTo == colorFrom {
-                guard
-                    let style = spans.last?.style,
-                    var segments = spans.last?.segments
-                else { return }
+                let solid: GMSStrokeStyle = speedFrom.styleSolid
 
-                segments += 1
+                if index > .zero,
+                   let lastSpan = spans.last,
+                   lastSpan.style == solid {
 
-                let lastIndex = spans.count - 1
-                spans[lastIndex] = GMSStyleSpan(style: style, segments: segments)
+                    let lastSyle = lastSpan.style
+                    var segments = lastSpan.segments
+                    segments += 1
+                    let lastIndex = spans.count - 1
+
+                    spans[lastIndex] = GMSStyleSpan(style: lastSyle, segments: segments)
+                } else {
+                    let span = GMSStyleSpan(style: solid)
+
+                    spans.append(span)
+                }
             } else {
-                let style = GMSStrokeStyle.gradient(from: colorFrom, to: colorTo)
+                let style = Speed.styleGradient(from: speedFrom, to: speedTo)
                 let span = GMSStyleSpan(style: style)
 
                 spans.append(span)
             }
         }
+        
+        print("spans count: \(spans.count), location pint count: \(locations.count)")
         
         return spans
     }
@@ -193,40 +227,32 @@ class MapViewController: UIViewController {
     
     private func nextClipAnimation() {
         guard
-            let track,
             isPlaying,
-            progress < track.locationPoints.count - 1
+            trackManager.progress < track.locationPoints.count - 1
         else {
             state = .pause
+            let clip = createClip(index: trackManager.progress, animation: false)
+            serialQueue.async(group: group, execute: clip)
             return
         }
         
         state = .play
-        
-        let clip = createClip(index: progress, animation: true)
-        
+        let clip = createClip(index: trackManager.progress, animation: true)
         serialQueue.async(group: group, execute: clip)
     }
     
     private func nextClip() {
-//        let clip: DispatchWorkItem
-//        if sliderMoving {
-//            clip = createClip(index: progress, animation: false)
-//        } else {
-//            clip = createClip(index: progress, animation: true)
-//        }
         
-        let clip = createClip(index: progress, animation: false)
+        let clip = createClip(index: trackManager.progress, animation: false)
         serialQueue.async(group: group, execute: clip)
     }
     
     private func createClip(index: Int, animation: Bool) -> DispatchWorkItem {
         let execute = DispatchWorkItem {
-            guard let track = self.track else { return }
-            let locationPoint = track.locationPoints[index]
+            let locationPoint = self.track.locationPoints[index]
             self.moveToSegment(locationPoint, animation: animation) {
                 if animation {
-                    self.progress += 1
+                    self.trackManager.progress += 1
                     self.nextClipAnimation()
                 } else {
                     if self.sliderMoving {

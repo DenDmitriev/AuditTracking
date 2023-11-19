@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TrackInfoView: View {
     
-    @EnvironmentObject var trackManager: TrackManager
+    @Binding var track: Track
     @State var maxSpeed: Int?
     @State var distance: Int?
     @State var startAt: Date?
@@ -34,17 +34,13 @@ struct TrackInfoView: View {
             }
             .font(AppFonts.regular)
         }
-        .onReceive(trackManager.$track) { newTrack in
-            if let maxSpeed = newTrack?.maxSpeed {
-                self.maxSpeed = Int(maxSpeed.rounded())
-            }
-            if let distance = newTrack?.distance {
-                self.distance = Int(distance.rounded())
-            }
-            if let startAt = newTrack?.startAt {
+        .onAppear {
+            self.maxSpeed = Int(track.maxSpeed.rounded())
+            self.distance = Int(track.distance.rounded())
+            if let startAt = track.startAt {
                 self.startAt = startAt
             }
-            if let finishIn = newTrack?.finishIn {
+            if let finishIn = track.finishIn {
                 self.finishIn = finishIn
             }
         }
@@ -70,13 +66,13 @@ struct TrackInfoView: View {
     }
     
     private func isDisableControl() -> Bool {
-        trackManager.track == nil
+        return false
     }
 }
 
 struct TrackInfoView_Previews: PreviewProvider {
     static var previews: some View {
-        TrackInfoView()
+        TrackInfoView(track: .constant(.placeholder))
             .environmentObject(TrackManager())
     }
 }

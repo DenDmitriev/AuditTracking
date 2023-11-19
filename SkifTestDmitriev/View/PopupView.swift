@@ -22,30 +22,27 @@ struct PopupView<Content>: View where Content: View {
                         .fill(Color.black).opacity(isShowing ? 0.2 : 0)
                         .edgesIgnoringSafeArea(.all)
                     
-                    VStack {
+                    VStack(spacing: 0) {
                         content()
                             .padding()
-                        
-                        Rectangle()
-                            .fill(AppColors.placeholder)
-                            .frame(height: AppLayout.borderWidth)
-                            .frame(maxWidth: .infinity)
+                            .border(width: AppLayout.borderWidth, edges: [.bottom], color: AppColors.placeholder)
                         
                         Button {
                             isShowing.toggle()
                         } label: {
                             Text("Закрыть")
                                 .frame(height: 48)
-                                .fontWeight(.medium)
+                                .font(AppFonts.titleTwo)
                         }
                     }
-                    .overlay(
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .stroke(AppColors.placeholder, lineWidth: AppLayout.borderWidth)
-                    )
                     .frame(width: geometry.size.width - 21 - 21)
-                    .background(.background)
+                    .background(
+                        VisualEffectView(effect: UIBlurEffect(style: .prominent))
+                    )
                     .cornerRadius(cornerRadius)
+                    
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(AppColors.placeholder, lineWidth: AppLayout.borderWidth)
                 }
             }
         }

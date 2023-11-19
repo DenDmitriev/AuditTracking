@@ -11,6 +11,7 @@ struct TrackContentView: View {
     
     @EnvironmentObject var trackManager: TrackManager
     
+    @Binding var track: Track
     @Binding var sliderMoving: Bool
     @Binding var isPlaying: Bool
     @Binding var showInfo: Bool
@@ -18,12 +19,12 @@ struct TrackContentView: View {
     
     var body: some View {
         VStack(spacing: 2) {
-            TrackInfoView()
+            TrackInfoView(track: $track)
                 .padding(.bottom, 10)
             
             TrackSliderView(
                 value: $trackManager.progress,
-                total: $trackManager.total,
+                total: trackManager.totalProgress,
                 speed: trackManager.speed,
                 isEditing: $sliderMoving
             )
@@ -41,13 +42,14 @@ struct TrackContentView: View {
     }
     
     private func isDisableControl() -> Bool {
-        trackManager.track == nil
+        return false
     }
 }
 
 struct TrackContentView_Previews: PreviewProvider {
     static var previews: some View {
         TrackContentView(
+            track: .constant(.placeholder),
             sliderMoving: .constant(false),
             isPlaying: .constant(false),
             showInfo: .constant(false),

@@ -20,7 +20,7 @@ struct TrackControlView: View {
             Button {
                 trackSpeed = trackSpeed.next()
             } label: {
-                Text(trackSpeed.rawValue.formatted() + "x")
+                Text("\(trackSpeed.rawValue)x")
                     .font(AppFonts.titleTwo)
                     .frame(width: height, height: height)
             }

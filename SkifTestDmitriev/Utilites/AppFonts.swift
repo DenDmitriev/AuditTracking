@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AppFonts {
+    static let icon: Font = Font.system(size: 22).weight(.semibold)
     static let titleOne: Font = Font.system(size: 20).weight(.semibold)
     static let titleTwo: Font = Font.system(size: 16).weight(.semibold)
     static let regular: Font = Font.system(size: 12).weight(.regular)

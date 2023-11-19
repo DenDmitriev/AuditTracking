@@ -16,23 +16,36 @@ struct ObserverView: View {
         Button {
             isObserve.toggle()
         } label: {
-            RoundedRectangle(cornerRadius: 10)
-                .stroke(AppColors.placeholder, lineWidth: AppLayout.borderWidth)
-                .background(content: {
-                    if isObserve {
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(AppColors.accentColor)
-                    } else {
-                        RoundedRectangle(cornerRadius: 10)
-                            .fill(.regularMaterial)
-                    }
-                })
-                .frame(width: 44, height: 44)
-                .overlay {
-                    Image(systemName: "eye")
-                        .foregroundColor(isObserve ? .white : AppColors.icon)
-                }
-                .opacity(isEnabled ? 1 : 0)
+            ZStack {
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(AppColors.placeholder, lineWidth: AppLayout.borderWidth)
+                    .background(
+                        buttonLabel(isObserve: isObserve)
+                    )
+                    .frame(width: 44, height: 44)
+                
+                Image(systemName: "eye")
+                    .foregroundColor(isObserve ? .white : AppColors.icon)
+            }
+            .opacity(isEnabled ? 1 : 0)
+        }
+    }
+    
+    private func buttonLabel(isObserve: Bool) -> some View {
+        VStack {
+            if isObserve {
+                Color.clear
+                    .background(
+                        AppColors.accentColor
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            } else {
+                Color.clear
+                    .background(
+                        VisualEffectView(effect: UIBlurEffect(style: .prominent))
+                    )
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+            }
         }
     }
 }

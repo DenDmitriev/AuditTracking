@@ -96,7 +96,9 @@ class MapViewController: UIViewController {
     func playTrack() {
         switch state {
         case .ready:
-            addMarkerToMap(coordinates: track.locationPoints[trackManager.progress].coordinate)
+            guard trackManager.progress < track.locationPoints.count else { return }
+            let coordinates = track.locationPoints[trackManager.progress].coordinate
+            addMarkerToMap(coordinates: coordinates)
             nextClipAnimation()
         case .play:
             return
@@ -249,6 +251,7 @@ class MapViewController: UIViewController {
     
     private func createClip(index: Int, animation: Bool) -> DispatchWorkItem {
         let execute = DispatchWorkItem {
+            guard index < self.track.locationPoints.count else { return }
             let locationPoint = self.track.locationPoints[index]
             self.moveToSegment(locationPoint, animation: animation) {
                 if animation {

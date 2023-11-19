@@ -24,7 +24,9 @@ final class TrackManager: ObservableObject {
     lazy var speed: Binding<Double?> = .init(
         get: { [self] in
             let track = trackStore[trackStore.selectedTrack]
-            guard let speed = track.locationPoints[self.progress].speed
+            guard
+                self.progress < track.locationPoints.count,
+                let speed = track.locationPoints[self.progress].speed
             else { return 0 }
             let convertedSpeed = ((speed / 1000) * 60 * 60).rounded()
             return convertedSpeed

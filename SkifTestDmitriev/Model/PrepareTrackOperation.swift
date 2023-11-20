@@ -83,7 +83,7 @@ class PrepareTrackOperation: Operation {
                 if let trackIndex = tracks.firstIndex(where: { $0.day == day }) {
                     tracks[trackIndex].locationPoints.append(locationPoint)
                 } else {
-                    tracks.append(Track(locationPoints: [locationPoint], day: day))
+                    tracks.append(Track(name: "Бензовоз", locationPoints: [locationPoint], day: day))
                 }
             }
         }

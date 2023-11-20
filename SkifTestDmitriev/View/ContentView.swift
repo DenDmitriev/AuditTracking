@@ -18,24 +18,41 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List(selection: selection) {
-                ForEach(trackManager.trackStore.tracks) { track in
-                    NavigationLink {
-                        MapView(track: track)
-                    } label: {
-                        TrackRow(track: track)
+            let years = trackManager.trackStore.years
+            VStack {
+                List(selection: selection) {
+                    ForEach(years, id: \.self) { year in
+                        let months = trackManager.trackStore.months(year: year)
+                        ForEach(months, id: \.self) { month in
+                            let title = Calendar.month(number: month)
+                            let tracks = trackManager.trackStore.tracks(month: month, year: year)
+                            Section {
+                                ForEach(tracks) { track in
+                                    NavigationLink {
+                                        MapView(track: track)
+                                    } label: {
+                                        TrackRow(track: track)
+                                    }
+                                }
+                            } header: {
+                                Text(title + ", " + String(year))
+                            } footer: {
+                                Text(String(tracks.count.tracks()))
+                            }
+                        }
                     }
                 }
-            }
-            .overlay(
-                LoadingView(isShowing: $trackManager.isLoading, text: $trackManager.message, progress: $trackManager.loadingProgress)
-            )
-            .onAppear {
-                Task {
-                    try await trackManager.fetchTracks()
-                }
+                
             }
             .navigationTitle("Маршруты")
+        }
+        .overlay(
+            LoadingView(isShowing: $trackManager.isLoading, text: $trackManager.message, progress: $trackManager.loadingProgress)
+        )
+        .onAppear {
+            Task {
+                try await trackManager.fetchTracks()
+            }
         }
     }
 }

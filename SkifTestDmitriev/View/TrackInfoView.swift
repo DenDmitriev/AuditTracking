@@ -17,7 +17,7 @@ struct TrackInfoView: View {
     
     var body: some View {
         VStack(spacing: 4) {
-            Text("Бензовоз")
+            Text(track.name)
                 .font(AppFonts.titleOne)
                 .frame(maxWidth: .infinity, alignment: .leading)
             

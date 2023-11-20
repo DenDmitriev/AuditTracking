@@ -28,4 +28,16 @@ extension Date {
         
         return date
     }
+    
+    func month() -> Int? {
+        let calendar = Calendar.current
+        let month = calendar.dateComponents([.month], from: self).month
+        return month
+    }
+    
+    func year() -> Int? {
+        let calendar = Calendar.current
+        let year = calendar.dateComponents([.year], from: self).year
+        return year
+    }
 }

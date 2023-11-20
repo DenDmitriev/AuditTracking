@@ -9,11 +9,12 @@ import SwiftUI
 
 class Track: Identifiable {
     let id: UUID
+    var name: String
     var locationPoints: [LocationPoint]
     var distance: Double = .zero // km
     var maxSpeed: Double = .zero // km/h
     var date: Date?
-    var day: Date?
+    var day: Date
     
     var pointCount: Int {
         locationPoints.count
@@ -27,8 +28,17 @@ class Track: Identifiable {
         locationPoints.last?.timestamp
     }
     
-    init(locationPoints: [LocationPoint], day: Date) {
+    var year: Int {
+        day.year() ?? .zero
+    }
+    
+    var month: Int {
+        day.month() ?? .zero
+    }
+    
+    init(name: String = "", locationPoints: [LocationPoint], day: Date) {
         self.id = UUID()
+        self.name = name
         self.day = day
         self.locationPoints = locationPoints
     }
@@ -105,7 +115,7 @@ extension Track {
                 return locationPoint
             }
             
-            return Track(locationPoints: locationPoints, day: Date().day()!)
+            return Track(name: "Бензовоз", locationPoints: locationPoints, day: Date().day()!)
         } catch let error {
             print(error.localizedDescription)
             return Track(locationPoints: [], day: Date())

@@ -19,23 +19,16 @@ struct TrackRow: View {
     var body: some View {
         VStack {
             HStack {
-                HStack {
-                    Text(distanceIcon)
-                    Text(speedIcon)
-                }
+                Text(track.name)
+                    .font(AppFonts.titleTwo)
                 
-                if let day = track.day {
-                    Text(TrackRow.dateFormatter.string(from: day))
-                        .font(AppFonts.titleTwo)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                } else {
-                    Text("Без даты")
-                }
+                Text(TrackRow.dateFormatter.string(from: track.day))
             }
+            .frame(maxWidth: .infinity, alignment: .leading)
             
             LazyVGrid(columns: columns) {
-                CustomLabel(name: "distance", text: "\(distance) км")
-                CustomLabel(systemName: "speedometer", text: "До \(maxSpeed) км/ч")
+                Text(distanceIcon + " \(distance) км")
+                Text(speedIcon + " До \(maxSpeed) км/ч")
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -53,7 +46,7 @@ struct TrackRow: View {
     
     private static var dateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .medium
+        dateFormatter.dateFormat = "dd MMMM"
         dateFormatter.locale = Locale(identifier: "Ru-ru")
         dateFormatter.timeZone = TimeZone.current
         return dateFormatter

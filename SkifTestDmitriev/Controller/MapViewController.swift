@@ -36,11 +36,15 @@ class MapViewController: UIViewController {
     private let map = GMSMapView()
     private var marker: GMSMarker?
     
-    init(trackManager: TrackManager, isPlaying: Binding<Bool>, speed:
-         Binding<TrackPlaySpeed>, isObserve: Binding<Bool>, zoomLevel: Binding<Float>, sliderMoving: Binding<Bool>) {
-//        self._track = track
+    init(
+        trackManager: TrackManager,
+        isPlaying: Binding<Bool>,
+        speed: Binding<TrackPlaySpeed>,
+        isObserve: Binding<Bool>,
+        zoomLevel: Binding<Float>,
+        sliderMoving: Binding<Bool>
+    ) {
         self._isPlaying = isPlaying
-//        self._progress = progress
         self._playSpeed = speed
         self._isObserveMode = isObserve
         self._zoomLevel = zoomLevel
@@ -250,10 +254,12 @@ class MapViewController: UIViewController {
     }
     
     private func createClip(index: Int, animation: Bool) -> DispatchWorkItem {
-        let execute = DispatchWorkItem {
+        let execute = DispatchWorkItem { [weak self] in
+            guard let self else { return }
             guard index < self.track.locationPoints.count else { return }
             let locationPoint = self.track.locationPoints[index]
-            self.moveToSegment(locationPoint, animation: animation) {
+            self.moveToSegment(locationPoint, animation: animation) { [weak self] in
+                guard let self else { return }
                 if animation {
                     self.trackManager.progress += 1
                     self.nextClipAnimation()

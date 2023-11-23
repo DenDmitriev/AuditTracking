@@ -66,6 +66,7 @@
 		958176662B089AEC00AE8E25 /* LoadingProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958176652B089AEC00AE8E25 /* LoadingProgress.swift */; };
 		958176682B08A63100AE8E25 /* PrepareTrackOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958176672B08A63100AE8E25 /* PrepareTrackOperation.swift */; };
 		958652562B0B271A0092DDC7 /* IntExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958652552B0B271A0092DDC7 /* IntExtension.swift */; };
+		95A1F3DF2B0F5BBD00AC788B /* AppFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A1F3DE2B0F5BBD00AC788B /* AppFormatters.swift */; };
 		95AEC5862B09F34000F29FA7 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 952CC0F22B0233810036BABF /* CoreTelephony.framework */; };
 		95AEC58A2B09FFE600F29FA7 /* TrackStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AEC5892B09FFE600F29FA7 /* TrackStore.swift */; };
 		95AEC58C2B0A17A700F29FA7 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95AEC58B2B0A17A700F29FA7 /* MapView.swift */; };
@@ -134,6 +135,7 @@
 		958176652B089AEC00AE8E25 /* LoadingProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingProgress.swift; sourceTree = "<group>"; };
 		958176672B08A63100AE8E25 /* PrepareTrackOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrepareTrackOperation.swift; sourceTree = "<group>"; };
 		958652552B0B271A0092DDC7 /* IntExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntExtension.swift; sourceTree = "<group>"; };
+		95A1F3DE2B0F5BBD00AC788B /* AppFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFormatters.swift; sourceTree = "<group>"; };
 		95AEC5892B09FFE600F29FA7 /* TrackStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackStore.swift; sourceTree = "<group>"; };
 		95AEC58B2B0A17A700F29FA7 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		95E77E602B08CE4200E1F281 /* VisualEffectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				958176612B0890CD00AE8E25 /* AppLayout.swift */,
 				9581765F2B08904E00AE8E25 /* EdgeBorder.swift */,
 				95E77E622B08CE4F00E1F281 /* Style */,
+				95A1F3DE2B0F5BBD00AC788B /* AppFormatters.swift */,
 			);
 			path = Utilites;
 			sourceTree = "<group>";
@@ -428,6 +431,7 @@
 				952CC13A2B0343090036BABF /* SpeedLegendView.swift in Sources */,
 				958176682B08A63100AE8E25 /* PrepareTrackOperation.swift in Sources */,
 				952CC1592B04B5350036BABF /* LoadingView.swift in Sources */,
+				95A1F3DF2B0F5BBD00AC788B /* AppFormatters.swift in Sources */,
 				952CC12A2B029B5F0036BABF /* TrackControlView.swift in Sources */,
 				952CC1242B02457E0036BABF /* AppColors.swift in Sources */,
 				958652562B0B271A0092DDC7 /* IntExtension.swift in Sources */,

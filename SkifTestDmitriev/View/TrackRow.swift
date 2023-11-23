@@ -22,7 +22,7 @@ struct TrackRow: View {
                 Text(track.name)
                     .font(AppFonts.titleTwo)
                 
-                Text(TrackRow.dateFormatter.string(from: track.day))
+                Text(AppFormatters.dateFormatterDM.string(from: track.day))
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             
@@ -43,14 +43,6 @@ struct TrackRow: View {
         let speedRounded = track.maxSpeed.rounded()
         return "\(Int(speedRounded))"
     }
-    
-    private static var dateFormatter: DateFormatter = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMMM"
-        dateFormatter.locale = Locale(identifier: "Ru-ru")
-        dateFormatter.timeZone = TimeZone.current
-        return dateFormatter
-    }()
     
     private var distanceIcon: String {
         switch track.distance {

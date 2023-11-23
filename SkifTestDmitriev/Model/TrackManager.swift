@@ -22,7 +22,8 @@ final class TrackManager: ObservableObject {
     }
     
     lazy var speed: Binding<Double?> = .init(
-        get: { [self] in
+        get: { [weak self] in
+            guard let self else { return .zero }
             let track = trackStore[trackStore.selectedTrack]
             guard
                 self.progress < track.locationPoints.count,
@@ -54,16 +55,16 @@ final class TrackManager: ObservableObject {
             
             Self.buildTrackOperation(json: json) { loadingProgress in
                 self.setLoadingProgress(progress: loadingProgress)
-            } completion: { tracks in
+            } completion: { [weak self] tracks in
                 DispatchQueue.main.async {
-                    self.trackStore.tracks = tracks
+                    self?.trackStore.tracks = tracks
                     
-                    if var loadingProgress = self.loadingProgress {
+                    if var loadingProgress = self?.loadingProgress {
                         loadingProgress.value = loadingProgress.total
-                        self.setLoadingProgress(progress: loadingProgress)
+                        self?.setLoadingProgress(progress: loadingProgress)
                     }
                     
-                    self.updateLoading(false)
+                    self?.updateLoading(false)
                 }
             }
         }
